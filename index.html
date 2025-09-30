@@ -46,8 +46,12 @@
         </div>
     </div>
 
-    <!-- Båda skripten använder 'defer' för att garantera korrekt laddningsordning -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta" defer></script>
-    <script src="app.js" defer></script>
+    <!-- Google Maps API Script - DEN DEFINITIVA LÖSNINGEN -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap"
+      async
+    ></script>
+   
+    <script src="app.js"></script>
 </body>
 </html>
