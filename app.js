@@ -9,7 +9,7 @@ const UNLOCK_DISTANCE = 5;
 const treasureLocationDescription = "under den största stenen, bakom den gamla träbänken vid fotbollsplanens östra kant.";
 const storyStartText = "Leos ande är svag... Han viskar att hans första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
-const locations = [
+const locations = [ 
 
     // Steg 1: Anslagstavlan
     { 
