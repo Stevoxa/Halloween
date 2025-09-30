@@ -46,10 +46,10 @@
         </div>
     </div>
 
-    <!-- Google Maps API Script (BORTTAGET 'async' FÖR KORREKT ORDNING) -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta"></script>
+    <!-- KORREKT LADDNING: 'async' är tillbaka för prestanda -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta" async></script>
    
-    <!-- Eget script (med defer för korrekt laddningsordning) -->
+    <!-- Eget script med 'defer' som körs när HTML är klart -->
     <script src="app.js" defer></script>
 </body>
 </html>
