@@ -23,6 +23,8 @@
     <!-- 2. Kartvyn (Huvudskärmen) -->
     <div id="map-screen" class="screen">
         <div id="map"></div>
+        <!-- NYTT ELEMENT FÖR AVSTÅNDSINFO -->
+        <div id="distance-info">Väntar på din position...</div>
     </div>
 
     <!-- 3. Uppgifts-modal (Pop-up) -->
@@ -46,11 +48,7 @@
         </div>
     </div>
 
-    <!-- Google Maps API Script - DEN DEFINITIVA LÖSNINGEN -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap"
-      async
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap" async></script>
    
     <script src="app.js"></script>
 </body>

@@ -115,3 +115,21 @@ input[type="text"] {
     height: 20px;
     font-weight: bold;
 }
+
+/* NYTT: Styling för avståndsinformation */
+#distance-info {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #ff6600;
+    font-size: 1.1em;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+    transition: all 0.3s;
+}
