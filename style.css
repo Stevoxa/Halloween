@@ -148,28 +148,6 @@ input[type="text"] {
     transition: all 0.3s;
 }
 
-.user-marker {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #4285F4;
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 3px #4285F4;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(66, 133, 244, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
-    }
-}
-
 .marker-icon {
     width: 40px;
     height: 40px;
@@ -203,9 +181,8 @@ input[type="text"] {
     filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.6));
 }
 
-/* NYTT: Styling för flervalsalternativ */
 #choices-container {
-    display: none; /* Dölj som standard */
+    display: none;
     margin-top: 15px;
     text-align: left;
 }
@@ -226,4 +203,61 @@ input[type="text"] {
 
 .choice-label input {
     margin-right: 10px;
+}
+
+.user-marker-icon {
+    font-size: 2.5em;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    animation: shadow-pulse 2s infinite;
+}
+
+@keyframes shadow-pulse {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+    }
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    }
+}
+
+#jumpscare-screen {
+    background-color: #000;
+    z-index: 999;
+}
+
+#jumpscare-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.monster-icon {
+    font-size: 2em;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 5px #ff0000);
+    animation: monster-bob 5s ease-in-out infinite;
+}
+
+@keyframes monster-bob {
+	0% { transform: translatey(0px); }
+	50% { transform: translatey(-5px); }
+	100% { transform: translatey(0px); }
 }

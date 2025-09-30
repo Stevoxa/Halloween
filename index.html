@@ -34,10 +34,7 @@
             <p id="task-story"></p>
             <p id="task-question" class="question"></p>
             <input type="text" id="task-answer" placeholder="Skriv ditt svar här...">
-            
-            <!-- NYTT: Behållare för flervalsalternativ -->
             <div id="choices-container"></div>
-            
             <button id="submit-answer-btn">Skicka svar</button>
             <p id="feedback-text"></p>
         </div>
@@ -71,8 +68,12 @@
         </div>
     </div>
 
+    <!-- NYTT: Helskärms-overlay för jump scare -->
+    <div id="jumpscare-screen" class="screen">
+        <img id="jumpscare-image" src="images/monster_jumpscare.png" alt="Jump Scare">
+    </div>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap" async></script>
-   
     <script src="app.js"></script>
 </body>
 </html>
