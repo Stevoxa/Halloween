@@ -116,6 +116,21 @@ input[type="text"] {
     font-weight: bold;
 }
 
+#story-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    color: #f0f0f0;
+    padding: 12px;
+    text-align: center;
+    font-size: 1em;
+    z-index: 10;
+    border-bottom: 2px solid #ff6600;
+    box-sizing: border-box;
+}
+
 #distance-info {
     position: absolute;
     bottom: 30px;

@@ -23,6 +23,7 @@
     <!-- 2. Kartvyn (Huvudskärmen) -->
     <div id="map-screen" class="screen">
         <div id="map"></div>
+        <div id="story-banner"></div>
         <div id="distance-info">Väntar på din position...</div>
     </div>
 
@@ -35,6 +36,15 @@
             <input type="text" id="task-answer" placeholder="Skriv ditt svar här...">
             <button id="submit-answer-btn">Skicka svar</button>
             <p id="feedback-text"></p>
+        </div>
+    </div>
+    
+    <!-- Pop-up för story-uppdateringar -->
+    <div id="story-modal" class="modal">
+        <div class="modal-content">
+            <h2>Ledtråd upplåst!</h2>
+            <p id="story-modal-text" class="story"></p>
+            <button id="story-modal-btn">Fortsätt...</button>
         </div>
     </div>
 
