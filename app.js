@@ -31,13 +31,15 @@ const locations = [
 const treasureLocationDescription = "under den största boken i parkens mitt.";
 
 // ======================================================
-// SPELMOTOR - RÖR EJ KODEN NEDANFÖR DENNA RAD
+// SPELMOTOR
 // ======================================================
 
 let map;
 let currentMarker;
 let currentIndex = 0;
+let AdvancedMarkerElement; // Deklareras här för att vara tillgänglig i hela filen
 
+// Hämta alla HTML-element
 const startScreen = document.getElementById('start-screen');
 const mapScreen = document.getElementById('map-screen');
 const endScreen = document.getElementById('end-screen');
@@ -50,33 +52,48 @@ const taskAnswer = document.getElementById('task-answer');
 const submitAnswerBtn = document.getElementById('submit-answer-btn');
 const feedbackText = document.getElementById('feedback-text');
 
-startBtn.addEventListener('click', () => {
-    startScreen.classList.remove('active');
-    mapScreen.classList.add('active');
-    if (map) {
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(mapStartCenter);
-    }
-    showNextLocation();
-});
+// Asynkron huvudfunktion som startar hela applikationen
+async function init() {
+    // Steg 1: Importera de Google Maps-bibliotek som behövs
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement: MarkerLibrary } = await google.maps.importLibrary("marker");
+    
+    // Tilldela den importerade markörklassen till vår variabel
+    AdvancedMarkerElement = MarkerLibrary; 
 
-submitAnswerBtn.addEventListener('click', checkAnswer);
-taskAnswer.addEventListener('keyup', (event) => {
-    if (event.key === "Enter") {
-        checkAnswer();
-    }
-});
+    // Steg 2: Skapa kartan med det korrekta Map ID:t
+    const myMapId = "e0482b62097a9124"; 
 
-function initMap() {
-    // VIKTIGT: Byt ut strängen nedan mot ditt riktiga Map ID från Google Cloud
-    const myMapId = "e0482b82057a9b12a4579124"; 
-
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new Map(document.getElementById("map"), {
         center: mapStartCenter,
         zoom: 15,   
         disableDefaultUI: true,
         zoomControl: true,
         mapId: myMapId 
+    });
+
+    // Steg 3: Sätt upp alla klick-lyssnare nu när kartan är garanterat laddad
+    setupEventListeners();
+}
+
+function setupEventListeners() {
+    startBtn.addEventListener('click', () => {
+        startScreen.classList.remove('active');
+        mapScreen.classList.add('active');
+        
+        // Trigger en 'resize' för kartan när den blir synlig för att undvika gråa rutor
+        google.maps.event.trigger(map, 'resize'); 
+        map.setCenter(mapStartCenter);
+        
+        showNextLocation();
+    });
+
+    submitAnswerBtn.addEventListener('click', checkAnswer);
+
+    taskAnswer.addEventListener('keyup', (event) => {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
     });
 }
 
@@ -84,19 +101,19 @@ function showNextLocation() {
     if (currentIndex < locations.length) {
         const location = locations[currentIndex];
         
-        // Ta bort gammal markör om den finns
+        // Ta bort föregående markör om den finns
         if (currentMarker) {
-            // Det nya sättet att ta bort en markör
             currentMarker.map = null;
         }
 
-        // NYTT: Använder AdvancedMarkerElement istället för new google.maps.Marker
-        currentMarker = new google.maps.marker.AdvancedMarkerElement({
+        // Skapa en ny avancerad markör
+        currentMarker = new AdvancedMarkerElement({
             position: location.position,
             map: map,
             title: location.title,
         });
 
+        // Lägg till en klick-lyssnare för den nya markören
         currentMarker.addListener('click', () => {
             taskTitle.textContent = location.title;
             taskStory.textContent = location.story;
@@ -107,6 +124,7 @@ function showNextLocation() {
         });
 
     } else {
+        // Inga fler platser kvar, visa slutet
         showEndScreen();
     }
 }
@@ -121,8 +139,6 @@ function checkAnswer() {
         
         setTimeout(() => {
             modal.style.display = 'none';
-            // Ta bort klickbarheten (detta fungerar inte likadant på nya markörer,
-            // men vi tar bort och ersätter den ändå, så beteendet blir detsamma)
             currentIndex++;
             showNextLocation();
         }, 1500);
@@ -139,5 +155,5 @@ function showEndScreen() {
     document.getElementById('treasure-location').textContent = treasureLocationDescription;
 }
 
-// Gör initMap tillgänglig globalt
-window.initMap = initMap;
+// Kör huvudfunktionen för att starta hela appen
+init();

@@ -46,10 +46,10 @@
         </div>
     </div>
 
-    <!-- Google Maps API Script -->
-    <!-- OBS: Byt ut DIN_API_NYCKEL mot din egen Google Maps API-nyckel -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta&callback=initMap" async></script>
+    <!-- Google Maps API Script (BORTTAGET 'async' FÖR KORREKT ORDNING) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta"></script>
    
-    <script src="app.js"></script>
+    <!-- Eget script (med defer för korrekt laddningsordning) -->
+    <script src="app.js" defer></script>
 </body>
 </html>
