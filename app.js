@@ -14,7 +14,7 @@ const locations = [
 
     // Steg 1: Anslagstavlan
     { 
-        position: { lat: 59.2839, lng: 17.7848 }, // <-- DINA UPPDATERADE KOORDINATER
+        position: { lat: 59.2839, lng: 17.7846 }, // <-- DINA UPPDATERADE KOORDINATER
         title: "Ett Eko vid Anslagstavlan",
         story: "Leos viskning är starkast här, där meddelanden delas. 'Min historia börjar här', säger han. 'Ett tecken finns kvar, om ni tittar noga...'",
         task: "Hur många häftstift sitter i den övre, vänstra fjärdedelen av tavlan?",
