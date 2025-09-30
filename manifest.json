@@ -1,0 +1,21 @@
+{
+    "name": "Spökjägarna - En Halloween Skattjakt",
+    "short_name": "Spökjägarna",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#ff6600",
+    "description": "En interaktiv skattjakt med Halloweentema.",
+    "icons": [
+        {
+            "src": "images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

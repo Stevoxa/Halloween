@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spökjägarna</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    <meta name="theme-color" content="#1a1a1a"/>
+</head>
+<body>
+
+    <!-- 1. Startskärm -->
+    <div id="start-screen" class="screen active">
+        <div class="content">
+            <h1>Spökjägarna</h1>
+            <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p>
+            <button id="start-btn">Börja Jakten</button>
+        </div>
+    </div>
+
+    <!-- 2. Kartvyn (Huvudskärmen) -->
+    <div id="map-screen" class="screen">
+        <div id="map"></div>
+    </div>
+
+    <!-- 3. Uppgifts-modal (Pop-up) -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="task-title"></h2>
+            <p id="task-story"></p>
+            <p id="task-question" class="question"></p>
+            <input type="text" id="task-answer" placeholder="Skriv ditt svar här...">
+            <button id="submit-answer-btn">Skicka svar</button>
+            <p id="feedback-text"></p>
+        </div>
+    </div>
+
+    <!-- 4. Avslutningsskärm -->
+    <div id="end-screen" class="screen">
+        <div class="content">
+            <h1>Uppdrag Slutfört!</h1>
+            <p class="story">Tack vare er har anden funnit frid! Som ett tecken på sin tacksamhet har den lämnat en skatt till er. Leta...</p>
+            <p id="treasure-location" class="question"></p>
+        </div>
+    </div>
+
+    <!-- Google Maps API Script -->
+    <!-- OBS: Byt ut DIN_API_NYCKEL mot din egen Google Maps API-nyckel -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta&callback=initMap" async></script>
+   
+    <script src="app.js"></script>
+</body>
+</html>
