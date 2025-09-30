@@ -148,6 +148,24 @@ input[type="text"] {
     transition: all 0.3s;
 }
 
+.user-marker-icon {
+    font-size: 2.5em;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    animation: shadow-pulse 2s infinite;
+}
+
+@keyframes shadow-pulse {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+    }
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+    }
+}
+
 .marker-icon {
     width: 40px;
     height: 40px;
@@ -205,24 +223,6 @@ input[type="text"] {
     margin-right: 10px;
 }
 
-.user-marker-icon {
-    font-size: 2.5em;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-    animation: shadow-pulse 2s infinite;
-}
-
-@keyframes shadow-pulse {
-    0% {
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-    }
-    50% {
-        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-    }
-    100% {
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-    }
-}
-
 #jumpscare-screen {
     background-color: #000;
     z-index: 999;
@@ -250,7 +250,7 @@ input[type="text"] {
 }
 
 .monster-icon {
-    font-size: 2em;
+    font-size: 2.2em; /* ÄNDRAD: Justerad storlek till ett mellanting */
     opacity: 0.9;
     filter: drop-shadow(0 0 5px #ff0000);
     animation: monster-bob 5s ease-in-out infinite;
@@ -260,4 +260,21 @@ input[type="text"] {
 	0% { transform: translatey(0px); }
 	50% { transform: translatey(-5px); }
 	100% { transform: translatey(0px); }
+}
+
+.treasure-icon {
+    font-size: 2.5em;
+    animation: gold-glow 1.5s infinite;
+}
+
+@keyframes gold-glow {
+    0% {
+        filter: drop-shadow(0 0 5px gold);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px gold);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px gold);
+    }
 }

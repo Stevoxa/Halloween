@@ -14,9 +14,7 @@ const storyStartText = "Anden Silas är svag... Han viskar att hans första minn
 // MONSTER-INSTÄLLNINGAR
 // ------------------------------------------------------
 
-const ACTIVE_MONSTERS_COUNT = 4;
-
-// NYTT: Hur nära måste man vara för att ett monster ska synas? (i meter)
+const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
 
 const monsterTypes = [
@@ -31,14 +29,14 @@ const monsterTypes = [
 ];
 
 const monsters = [
-    { typeId: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] }, // Zombie
-    { typeId: 1, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] }, // Vampire
-    { typeId: 2, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] }, // Clown
-    { typeId: 3, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] }, // Demon
-    { typeId: 4, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] }, // Insekt
-    { typeId: 5, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] }, // Spindel
-    { typeId: 6, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] }, // Varulv
-    { typeId: 7, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] }, // Hamster
+    { typeId: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
+    { typeId: 1, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
+    { typeId: 2, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
+    { typeId: 3, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
+    { typeId: 4, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
+    { typeId: 5, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
+    { typeId: 6, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
+    { typeId: 7, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
 ];
 
 const MONSTER_PROXIMITY_NEAR = 10;
@@ -61,7 +59,6 @@ const locations = [
     { position: { lat: 59.2851, lng: 17.7866 }, title: "Skatten!", story: "...", task: "...", answer: "placeholder", nextClue: "" }
 ];
 
-
 // ======================================================
 //
 //  SPELMOTOR - RÖR EJ KODEN NEDANFÖR
@@ -80,6 +77,7 @@ let activeMonsterInstances = [];
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// **KORRIGERING: Återställer alla getElementById-deklarationer**
 const startScreen = document.getElementById('start-screen');
 const mapScreen = document.getElementById('map-screen');
 const endScreen = document.getElementById('end-screen');
@@ -130,204 +128,24 @@ async function initMap() {
     setupEventListeners();
 }
 
-function startLocationWatcher() {
-    if (!navigator.geolocation) {
-        distanceInfo.textContent = "Geopositionering stöds inte.";
-        return;
-    }
-    navigator.geolocation.watchPosition((position) => {
-        userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
-        if (!userMarker) {
-            const userMarkerElement = document.createElement('div');
-            userMarkerElement.innerHTML = '👤';
-            userMarkerElement.className = 'user-marker-icon';
-            userMarker = new AdvancedMarkerElement({ position: userPosition, map: map, content: userMarkerElement, title: 'Din position' });
-        } else {
-            userMarker.position = userPosition;
-        }
-        if (isFollowingUser) {
-            map.panTo(userPosition);
-        }
-        updateDistance();
-    }, () => {
-        distanceInfo.textContent = "Kunde inte hämta position.";
-    }, { enableHighAccuracy: true });
-}
-
-function showInfoModal(title, message) {
-    infoModalTitle.textContent = title;
-    infoModalText.textContent = message;
-    infoModal.style.display = 'flex';
-}
-
-function setupEventListeners() {
-    startBtn.addEventListener('click', () => {
-        startScreen.classList.remove('active');
-        mapScreen.classList.add('active');
-        storyBanner.textContent = storyStartText;
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(mapStartCenter);
-        showNextLocation();
-        startLocationWatcher();
-        spawnMonsters();
-        startGameLoop();
-    });
-    submitAnswerBtn.addEventListener('click', checkAnswer);
-    taskAnswer.addEventListener('keyup', (event) => {
-        if (event.key === "Enter") checkAnswer();
-    });
-    storyModalBtn.addEventListener('click', () => {
-        panToNextLocation();
-    });
-    infoModalBtn.addEventListener('click', () => {
-        infoModal.style.display = 'none';
-    });
-}
-
-function spawnMonsters() {
-    const monstersToSpawn = monsters.slice(0, ACTIVE_MONSTERS_COUNT);
-    monstersToSpawn.forEach(monsterData => {
-        const typeInfo = monsterTypes.find(t => t.id === monsterData.typeId);
-        if (!typeInfo) return;
-        const monsterIcon = document.createElement('div');
-        monsterIcon.className = 'monster-icon';
-        monsterIcon.textContent = typeInfo.icon;
-        
-        // Skapa markören men gör den osynlig från start
-        const marker = new AdvancedMarkerElement({
-            position: monsterData.waypoints[0],
-            map: null, // Startar som osynlig
-            content: monsterIcon,
-            title: `Monster`
-        });
-
-        activeMonsterInstances.push({
-            marker: marker,
-            typeInfo: typeInfo,
-            waypoints: monsterData.waypoints,
-            isHit: false,
-            currentWaypoint: 0,
-            isVisible: false // Håller koll på om monstret är synligt
-        });
-    });
-}
-
-function startGameLoop() {
-    setInterval(() => {
-        updateMonsterPositions();
-        checkMonsterProximity();
-    }, 1000);
-}
-
-function updateMonsterPositions() {
-    activeMonsterInstances.forEach(monster => {
-        if (monster.isHit || !monster.marker) return;
-        const targetWaypoint = monster.waypoints[monster.currentWaypoint];
-        const currentPos = monster.marker.position;
-        if (getDistance(currentPos, targetWaypoint) < 1) {
-            monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length;
-        }
-        const nextTarget = monster.waypoints[monster.currentWaypoint];
-        monster.marker.position = {
-            lat: currentPos.lat + (nextTarget.lat - currentPos.lat) * 0.1,
-            lng: currentPos.lng + (nextTarget.lng - currentPos.lng) * 0.1
-        };
-    });
-}
-
-function checkMonsterProximity() {
-    if (!userPosition) return;
-    activeMonsterInstances.forEach(monster => {
-        if (monster.isHit || !monster.marker) return;
-
-        const distance = getDistance(userPosition, monster.marker.position);
-
-        // NY LOGIK: Hantera synlighet
-        if (distance <= MONSTER_VISIBILITY_DISTANCE) {
-            if (!monster.isVisible) {
-                monster.marker.map = map;
-                monster.isVisible = true;
-            }
-        } else {
-            if (monster.isVisible) {
-                monster.marker.map = null;
-                monster.isVisible = false;
-            }
-        }
-
-        // Kör bara ljud- och träfflogik om monstret är synligt
-        if (monster.isVisible) {
-            if (distance < MONSTER_HIT_DISTANCE) {
-                handleMonsterHit(monster);
-            } else if (distance < MONSTER_PROXIMITY_CLOSE) {
-                sounds[monster.typeInfo.sounds.close].play();
-            } else if (distance < MONSTER_PROXIMITY_NEAR) {
-                sounds[monster.typeInfo.sounds.near].play();
-            }
-        }
-    });
-}
-
-function handleMonsterHit(monster) {
-    monster.isHit = true;
-    sounds[monster.typeInfo.sounds.hit].play();
-    jumpscareImage.src = monster.typeInfo.jumpscareImg;
-    jumpscareScreen.classList.add('active');
-    if (monster.marker) {
-        monster.marker.map = null;
-        monster.marker = null;
-    }
-    setTimeout(() => {
-        jumpscareScreen.classList.remove('active');
-    }, 2000);
-}
-
-function checkAnswer() {
-    const location = locations[currentIndex];
-    let userAnswer;
-    const choiceIsVisible = choicesContainer.style.display === 'block';
-    if (choiceIsVisible) {
-        const selectedChoice = document.querySelector('input[name="choices"]:checked');
-        if (selectedChoice) { userAnswer = selectedChoice.value; } else { showInfoModal("Inget val gjort", "Du måste välja ett alternativ!"); return; }
-    } else {
-        userAnswer = taskAnswer.value.trim();
-    }
-    if (userAnswer.toLowerCase() === location.answer.toLowerCase()) {
-        sounds.correct.play();
-        feedbackText.textContent = "Rätt svar!";
-        feedbackText.style.color = "#00ff00";
-        if (currentMarker) {
-            currentMarker.content = createMarkerIcon('completed');
-            currentMarker.gmpClickable = false;
-        }
-        setTimeout(() => {
-            modal.style.display = 'none';
-            showStoryUpdate();
-        }, 1500);
-    } else {
-        sounds.wrong.play();
-        if (!choiceIsVisible) {
-            wrongAnswerCount++;
-            feedbackText.textContent = `Fel svar. Försök igen. (${wrongAnswerCount}/${ATTEMPTS_BEFORE_CHOICES})`;
-            feedbackText.style.color = "#ff0000";
-            if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) {
-                showMultipleChoice();
-            }
-        } else {
-            feedbackText.textContent = "Fel svar. Försök igen.";
-            feedbackText.style.color = "#ff0000";
-        }
-    }
-}
-
-// ... (resten av filen är oförändrad och kan klistras in här)
+// ... (resten av filen är oförändrad från förra versionen) ...
+function startLocationWatcher() { if (!navigator.geolocation) { distanceInfo.textContent = "Geopositionering stöds inte."; return; } navigator.geolocation.watchPosition((position) => { userPosition = { lat: position.coords.latitude, lng: position.coords.longitude }; if (!userMarker) { const userMarkerElement = document.createElement('div'); userMarkerElement.innerHTML = '👤'; userMarkerElement.className = 'user-marker-icon'; userMarker = new AdvancedMarkerElement({ position: userPosition, map: map, content: userMarkerElement, title: 'Din position' }); } else { userMarker.position = userPosition; } if (isFollowingUser) { map.panTo(userPosition); } updateDistance(); }, () => { distanceInfo.textContent = "Kunde inte hämta position."; }, { enableHighAccuracy: true }); }
+function showInfoModal(title, message) { infoModalTitle.textContent = title; infoModalText.textContent = message; infoModal.style.display = 'flex'; }
+function setupEventListeners() { startBtn.addEventListener('click', () => { startScreen.classList.remove('active'); mapScreen.classList.add('active'); storyBanner.textContent = storyStartText; google.maps.event.trigger(map, 'resize'); map.setCenter(mapStartCenter); showNextLocation(); startLocationWatcher(); spawnMonsters(); startGameLoop(); }); submitAnswerBtn.addEventListener('click', checkAnswer); taskAnswer.addEventListener('keyup', (event) => { if (event.key === "Enter") checkAnswer(); }); storyModalBtn.addEventListener('click', () => { panToNextLocation(); }); infoModalBtn.addEventListener('click', () => { infoModal.style.display = 'none'; }); }
 async function panToNextLocation() { storyModal.style.display = 'none'; storyBanner.textContent = locations[currentIndex].nextClue; currentIndex++; const nextLocation = locations[currentIndex]; if (!nextLocation || currentIndex >= locations.length - 1) { showEndScreen(); return; } isFollowingUser = false; map.panTo(nextLocation.position); await sleep(2500); showNextLocation(); await sleep(2000); if (userPosition) { map.panTo(userPosition); await sleep(2500); } isFollowingUser = true; }
 function openTaskModal() { const location = locations[currentIndex]; modal.style.display = 'flex'; taskTitle.textContent = location.title; taskStory.textContent = location.story; taskQuestion.textContent = location.task; taskAnswer.value = ''; feedbackText.textContent = ''; taskAnswer.style.display = 'block'; choicesContainer.style.display = 'none'; choicesContainer.innerHTML = ''; wrongAnswerCount = 0; }
 function showNextLocation() { if (currentIndex < locations.length - 1) { const location = locations[currentIndex]; currentMarker = new AdvancedMarkerElement({ position: location.position, map: map, title: location.title, content: createMarkerIcon('active') }); currentMarker.addListener('click', () => { if (!userPosition) { showInfoModal("Positionering", "Väntar på att hitta din position..."); return; } const distance = getDistance(userPosition, location.position); if (distance <= UNLOCK_DISTANCE) { openTaskModal(); } else { showInfoModal("Du är för långt bort", `Gå närmare! Du är ${Math.round(distance)} meter ifrån.`); } }); updateDistance(); } else { showEndScreen(); } }
 function showMultipleChoice() { const location = locations[currentIndex]; taskAnswer.style.display = 'none'; choicesContainer.style.display = 'block'; choicesContainer.innerHTML = ''; feedbackText.textContent = `För svårt? Här är några alternativ...`; feedbackText.style.color = '#ffaa77'; location.choices.forEach(choice => { const id = `choice-${choice.replace(/\s+/g, '')}`; const label = document.createElement('label'); label.className = 'choice-label'; label.htmlFor = id; const input = document.createElement('input'); input.type = 'radio'; input.name = 'choices'; input.id = id; input.value = choice; label.appendChild(input); label.appendChild(document.createTextNode(choice)); choicesContainer.appendChild(label); }); }
+function checkAnswer() { const location = locations[currentIndex]; let userAnswer; const choiceIsVisible = choicesContainer.style.display === 'block'; if (choiceIsVisible) { const selectedChoice = document.querySelector('input[name="choices"]:checked'); if (selectedChoice) { userAnswer = selectedChoice.value; } else { showInfoModal("Inget val gjort", "Du måste välja ett alternativ!"); return; } } else { userAnswer = taskAnswer.value.trim(); } if (userAnswer.toLowerCase() === location.answer.toLowerCase()) { sounds.correct.play(); feedbackText.textContent = "Rätt svar!"; feedbackText.style.color = "#00ff00"; if (currentMarker) { currentMarker.content = createMarkerIcon('completed'); currentMarker.gmpClickable = false; } setTimeout(() => { modal.style.display = 'none'; showStoryUpdate(); }, 1500); } else { sounds.wrong.play(); if (!choiceIsVisible) { wrongAnswerCount++; feedbackText.textContent = `Fel svar. Försök igen. (${wrongAnswerCount}/${ATTEMPTS_BEFORE_CHOICES})`; feedbackText.style.color = "#ff0000"; if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) { showMultipleChoice(); } } else { feedbackText.textContent = "Fel svar. Försök igen."; feedbackText.style.color = "#ff0000"; } } }
 function showStoryUpdate() { const nextClueText = locations[currentIndex].nextClue; if (nextClueText) { storyModalText.textContent = nextClueText; storyModal.style.display = 'flex'; } else { currentIndex++; showEndScreen(); } }
 function updateDistance() { if (!userPosition || currentIndex >= locations.length - 1) { distanceInfo.style.display = 'none'; return; } distanceInfo.style.display = 'block'; const targetPosition = locations[currentIndex].position; const distance = getDistance(userPosition, targetPosition); if (distance <= UNLOCK_DISTANCE) { distanceInfo.textContent = "Du är framme! Klicka på spöket."; } else { distanceInfo.textContent = `Du är ${Math.round(distance)} meter bort.`; } }
 function getDistance(pos1, pos2) { const R = 6371e3; const φ1 = pos1.lat * Math.PI / 180; const φ2 = pos2.lat * Math.PI / 180; const Δφ = (pos2.lat - pos1.lat) * Math.PI / 180; const Δλ = (pos2.lng - pos1.lng) * Math.PI / 180; const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2); const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); return R * c; }
 function createMarkerIcon(type) { const iconDiv = document.createElement('div'); iconDiv.className = 'marker-icon'; if (type === 'completed') { iconDiv.textContent = '🪦'; iconDiv.classList.add('completed'); } else { iconDiv.textContent = '👻'; } return iconDiv; }
 function showEndScreen() { mapScreen.classList.remove('active'); endScreen.classList.add('active'); storyBanner.style.display = 'none'; distanceInfo.style.display = 'none'; document.getElementById('treasure-location').textContent = treasureLocationDescription; }
+function spawnMonsters() { const monstersToSpawn = monsters.slice(0, ACTIVE_MONSTERS_COUNT); monstersToSpawn.forEach(monsterData => { const typeInfo = monsterTypes.find(t => t.id === monsterData.typeId); if (!typeInfo) return; const monsterIcon = document.createElement('div'); monsterIcon.className = 'monster-icon'; monsterIcon.textContent = typeInfo.icon; const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: null, content: monsterIcon, title: `Monster` }); activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: false }); }); }
+function startGameLoop() { setInterval(() => { updateMonsterPositions(); checkMonsterProximity(); }, 1000); }
+function updateMonsterPositions() { activeMonsterInstances.forEach(monster => { if (monster.isHit || !monster.marker) return; const targetWaypoint = monster.waypoints[monster.currentWaypoint]; const currentPos = monster.marker.position; if (getDistance(currentPos, targetWaypoint) < 1) { monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length; } const nextTarget = monster.waypoints[monster.currentWaypoint]; monster.marker.position = { lat: currentPos.lat + (nextTarget.lat - currentPos.lat) * 0.1, lng: currentPos.lng + (nextTarget.lng - currentPos.lng) * 0.1 }; }); }
+function checkMonsterProximity() { if (!userPosition) return; activeMonsterInstances.forEach(monster => { if (monster.isHit || !monster.marker) return; const distance = getDistance(userPosition, monster.marker.position); if (distance <= MONSTER_VISIBILITY_DISTANCE) { if (!monster.isVisible) { monster.marker.map = map; monster.isVisible = true; } } else { if (monster.isVisible) { monster.marker.map = null; monster.isVisible = false; } } if (monster.isVisible) { if (distance < MONSTER_HIT_DISTANCE) { handleMonsterHit(monster); } else if (distance < MONSTER_PROXIMITY_CLOSE) { sounds[monster.typeInfo.sounds.close].play(); } else if (distance < MONSTER_PROXIMITY_NEAR) { sounds[monster.typeInfo.sounds.near].play(); } } }); }
+function handleMonsterHit(monster) { monster.isHit = true; sounds[monster.typeInfo.sounds.hit].play(); jumpscareImage.src = monster.typeInfo.jumpscareImg; jumpscareScreen.classList.add('active'); if(monster.marker) { monster.marker.map = null; monster.marker = null; } setTimeout(() => { jumpscareScreen.classList.remove('active'); }, 2000); }
+
 window.initMap = initMap;
