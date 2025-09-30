@@ -26,7 +26,7 @@ h1, h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: opacity 1s ease-in-out; /* För mjuka övergångar */
+    transition: opacity 1s ease-in-out;
 }
 
 .screen.active {
@@ -34,7 +34,7 @@ h1, h2 {
 }
 
 #start-screen, #end-screen, #intro-screen {
-    background-color: #000; /* Solid svart för bättre stämning */
+    background-color: #000;
     flex-direction: column;
 }
 
@@ -252,17 +252,10 @@ input[type="text"] {
     100% { filter: drop-shadow(0 0 5px gold); }
 }
 
-/* NYTT: Styling för Silas bild */
+/* ÄNDRAD: Silas bildstyling - ingen oval, ingen float-animation */
 #silas-image {
     max-width: 250px;
-    border-radius: 50%;
     margin-bottom: 20px;
     filter: drop-shadow(0 0 20px rgba(173, 216, 230, 0.7)) grayscale(50%) opacity(0.8);
-    animation: ghost-float 5s ease-in-out infinite;
-}
-
-@keyframes ghost-float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+    /* Inga animationer eller border-radius */
 }
