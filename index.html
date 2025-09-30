@@ -46,10 +46,8 @@
         </div>
     </div>
 
-    <!-- KORREKT LADDNING: 'async' är tillbaka för prestanda -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta" async></script>
-   
-    <!-- Eget script med 'defer' som körs när HTML är klart -->
+    <!-- Båda skripten använder 'defer' för att garantera korrekt laddningsordning -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&libraries=marker&v=beta" defer></script>
     <script src="app.js" defer></script>
 </body>
 </html>
