@@ -34,6 +34,10 @@
             <p id="task-story"></p>
             <p id="task-question" class="question"></p>
             <input type="text" id="task-answer" placeholder="Skriv ditt svar här...">
+            
+            <!-- NYTT: Behållare för flervalsalternativ -->
+            <div id="choices-container"></div>
+            
             <button id="submit-answer-btn">Skicka svar</button>
             <p id="feedback-text"></p>
         </div>
@@ -48,7 +52,7 @@
         </div>
     </div>
     
-    <!-- NYTT: Generell pop-up för information -->
+    <!-- Generell pop-up för information -->
     <div id="info-modal" class="modal">
         <div class="modal-content">
             <h2 id="info-modal-title"></h2>
@@ -61,6 +65,7 @@
     <div id="end-screen" class="screen">
         <div class="content">
             <h1>Uppdrag Slutfört!</h1>
+            <img id="treasure-image" src="images/treasure.png" alt="En skattkista">
             <p class="story">Tack vare er har anden funnit frid! Som ett tecken på sin tacksamhet har den lämnat en skatt till er. Leta...</p>
             <p id="treasure-location" class="question"></p>
         </div>

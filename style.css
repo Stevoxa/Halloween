@@ -196,3 +196,34 @@ input[type="text"] {
 		transform: translatey(0px);
 	}
 }
+
+#treasure-image {
+    max-width: 180px;
+    margin: 20px 0;
+    filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.6));
+}
+
+/* NYTT: Styling för flervalsalternativ */
+#choices-container {
+    display: none; /* Dölj som standard */
+    margin-top: 15px;
+    text-align: left;
+}
+
+.choice-label {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.choice-label:hover {
+    background-color: #444;
+}
+
+.choice-label input {
+    margin-right: 10px;
+}
