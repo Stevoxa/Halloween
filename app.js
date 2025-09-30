@@ -37,7 +37,7 @@ async function initMap() {
     const { AdvancedMarkerElement: MarkerLibrary } = await google.maps.importLibrary("marker");
     AdvancedMarkerElement = MarkerLibrary;
 
-    const myMapId = "e0482b62097a9124";
+    const myMapId = "e0482b82057a9b12a4579124";
 
     map = new Map(document.getElementById("map"), {
         center: mapStartCenter,
