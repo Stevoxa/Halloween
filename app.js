@@ -10,103 +10,103 @@ const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt 
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 const DEVELOPER_MODE = true;
 
-const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
+const storyStartText = "Jag är en viskning i vinden... jag är Silas. Jag är fast här och kommer inte vidare. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
 const locations = [
     { 
         position: { lat: 59.2839, lng: 17.7846 }, 
         title: "Ett Eko vid Anslagstavlan", 
-        story: "Silas röst är tydligast här. 'Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.'", 
-        task: "Hur många häftstift sitter i den övre, vänstra fjärdedelen av tavlan?", 
+        story: "Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.", 
+        task: "Jag föds i det tysta, i skuggornas vrå, ett ord blir till många och börjar att gå. Jag växer med viskningar, blir större än sant, och kan krossa ett rykte i byn med min hand. Vad är jag –  ett ord som sprids utan källor?", 
         taskImage: "images/task_anslagstavlan.png",
-        answer: "7", 
-        choices: ["5", "7", "9"], 
+        answer: "Skvaller", 
+        choices: ["Förbannelse", "Ande", "Skvaller"], 
         nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter..." 
     },
     { 
         position: { lat: 59.2838, lng: 17.7855 }, 
         title: "Minnen vid Gungorna", 
-        story: "'Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.'", 
-        task: "Vilken färg har sätet på gungan som är längst till höger?", 
+        story: "Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.", 
+        task: "I rött och vitt bär han sitt skratt, från mörka brunnar har han ofta skatt. Han lockar med ballonger och ett löfte så lent – men mötet med honom blir sällan skönt. Vem väntar vid gungornas minne i nattens sken?", 
         taskImage: "images/task_gungorna.png",
-        answer: "röd", 
-        choices: ["Grön", "Blå", "Röd"], 
+        answer: "Pennywise", 
+        choices: ["Pennywise", "Jokern", "Merry Poppins"], 
         nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé..." 
     },
     { 
         position: { lat: 59.2845, lng: 17.7858 }, 
         title: "Dödens allé", 
-        story: "'Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.'", 
-        task: "Hur många av de stora träden längs alléns västra sida har förvridna, dubbla stammar?", 
+        story: "Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
+        task: "När månen är rund och natten är kall, hörs ett yl från skogen, mörkt och kallt. Människa om dagen, men i nattens tid – vilket odjur lurar i Dödens allé?", 
         taskImage: "images/task_dödensallé.png",
-        answer: "2", 
-        choices: ["1", "2", "3"], 
-        nextClue: "Ni ser dem... Vägen leder till en plats med ett hemskt förflutet. En plats där ingen fick ro. Galgbacken." 
+        answer: "Varulv", 
+        choices: ["Troll", "Varulv", "Gast"], 
+        nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken." 
     },
     { 
         position: { lat: 59.2848, lng: 17.7852 }, 
         title: "Galgbacken", 
-        story: "'De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. Det finns ett ord inristat här, ett ord av varning.'", 
-        task: "Vilket är det enskilda ordet som är inristat på den lilla minnesplaketten?", 
+        story: "De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. ", 
+        task: "En plats där dom föll för sitt brott, där livet tog slut med ett rep så kort. Här slutade vägen för många en stackare – vad kallas platsen? Jo, en …", 
         taskImage: "images/task_galgbacken.png",
-        answer: "Glöm", 
-        choices: ["Minns", "Glöm", "Vila"], 
+        answer: "Galgbacke", 
+        choices: ["Avrättningsplats", "Galgbacke", "Lekplats"], 
         nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare." 
     },
     { 
         position: { lat: 59.2839, lng: 17.7862 }, 
         title: "Kråkslottet på höjden", 
-        story: "'Från detta hus såg jag hela världen', säger Silas. 'En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.'", 
-        task: "Addera de två siffrorna i husnumret. (Exempel: Nr 24 blir 2+4=6).", 
+        story: "Från detta hus såg jag hela världen. En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.", 
+        task: "De sover om dagen men jagar i natt, med huggtänder redo och mörkret som skatt. De törstar efter blod i sin eviga jakt – vad är det för varelse som lever på detta sätt?", 
         taskImage: "images/task_kråkslottet.png",
-        answer: "6", 
-        choices: ["5", "6", "8"], 
+        answer: "Vampyr", 
+        choices: ["Gast", "Varulv", "Vampyr"], 
         nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron." 
     },
     { 
         position: { lat: 59.2842, lng: 17.7845 }, 
         title: "Trollbron", 
-        story: "'Skynda er över', väser Silas. 'Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!'", 
+        story: "Skynda er över. Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!", 
         task: "Hur många träplankor utgör själva gångbanan på bron?", 
         taskImage: "images/task_trollbron.png",
-        answer: "12", 
-        choices: ["10", "12", "15"], 
+        answer: "2", 
+        choices: ["2", "3", "1"], 
         nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot." 
     },
     { 
         position: { lat: 59.2835, lng: 17.7848 }, 
         title: "De Silverglänsande Kloten", 
-        story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus från skuggorna.'", 
-        task: "Vad blir poängen om du multiplicerar antalet bänkar med antalet papperskorgar vid planen?", 
+        story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus i skuggorna.'", 
+        task: "Här klotens klick i tystnaden slår, en paus från skuggor som annars består. Men öppna nu ögonen, räkna med hand – hur många vilsamma bänkar syns från grusets land?", 
         taskImage: "images/task_bouleplanen.png",
-        answer: "2", 
-        choices: ["1", "2", "4"], 
+        answer: "3", 
+        choices: ["5", "1", "3"], 
         nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen." 
     },
     { 
         position: { lat: 59.2850, lng: 17.7865 }, 
         title: "Offerplatsen", 
         story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", 
-        task: "Hur många stora steg tar det att gå tvärs över den brända cirkeln?", 
+        task: "En stjärna i natten, ett mörkrets tecken, i gamla ritualer har den funnits i seklen. Med uddarna vassa som ondska och far, hur många spetsar djävulens stjärna har?", 
         taskImage: "images/task_offerplatsen.png",
-        answer: "8", 
-        choices: ["5", "8", "11"], 
+        answer: "5", 
+        choices: ["5", "6", "7"], 
         nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt." 
     },
     { 
         position: { lat: 59.2847, lng: 17.7841 }, 
         title: "Den Tysta Matchen", 
-        story: "'Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.'", 
-        task: "Gå till det norra målet. Hur många rostiga skruvar håller fast den vänstra stolpen i marken?", 
+        story: "Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.", 
+        task: "Där matcherna spelas och bollen far, finns platsen där trötta sin vila tar. Vad finns här vid planen där man slår sig ner?", 
         taskImage: "images/task_fotbollsplanen.png",
-        answer: "3", 
-        choices: ["2", "3", "4"], 
+        answer: "Bänken", 
+        choices: ["Bänken", "Gräset", "Stenen"], 
         nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!" 
     },
     { 
         position: { lat: 59.2851, lng: 17.7866 }, 
         title: "Silas Sista Gömställe", 
-        story: "Silas viskar: 'Den är här, vid foten av stammen. Snälla, hitta den.'", 
+        story: "Den är här, vid foten av stammen. Snälla, hitta den.", 
         task: "", answer: "", nextClue: "" 
     }
 ];
