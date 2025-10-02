@@ -9,7 +9,6 @@ const UNLOCK_DISTANCE = 5;
 const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 const DEVELOPER_MODE = true;
-
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
 // ------------------------------------------------------
@@ -418,7 +417,10 @@ function startGameLoop() {
 function updateMonsterPositions() {
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
+
         let targetPosition;
+        const moveFactor = monster.isChasing ? 0.2 : 0.1;
+
         if (monster.isChasing && userPosition) {
             targetPosition = userPosition;
         } else {
@@ -428,10 +430,11 @@ function updateMonsterPositions() {
                 targetPosition = monster.waypoints[monster.currentWaypoint];
             }
         }
+        
         const currentPos = monster.marker.position;
         monster.marker.position = {
-            lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * 0.1,
-            lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * 0.1
+            lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * moveFactor,
+            lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * moveFactor
         };
     });
 }
@@ -503,15 +506,23 @@ function checkMonsterProximity() {
 function handleMonsterHit(monster) {
     if (monster.isHit) return;
     monster.isHit = true;
+    
+    if (navigator.vibrate) {
+        navigator.vibrate(500);
+    }
+    
     jumpscareImage.src = monster.typeInfo.jumpscareImg;
     jumpscareScreen.classList.add('active');
+    
     setTimeout(() => {
         sounds[monster.typeInfo.sounds.hit].play();
     }, 200);
+    
     if (monster.marker) {
         monster.marker.map = null;
         monster.marker = null;
     }
+
     setTimeout(() => {
         jumpscareScreen.classList.remove('active');
     }, 2000);
