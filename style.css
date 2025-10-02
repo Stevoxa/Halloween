@@ -94,6 +94,46 @@ button:hover {
     box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
 }
 
+/* --- ÄNDRINGAR FÖR NYA SILAS-DIALOGEN --- */
+
+/* Gör story-modalen till en helskärms-overlay */
+#story-modal {
+    background-color: #000;
+    flex-direction: column;
+}
+
+/* Ta bort den lilla box-stilen för innehållet i story-modalen */
+#story-modal .modal-content {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 90%;
+}
+
+/* Dölj den gamla titeln i story-modalen */
+#story-modal-title {
+    display: none;
+}
+
+/* Styla om knappen i story-modalen */
+#story-modal button {
+    background: transparent;
+    border: 2px solid #ccc;
+    color: #ccc;
+    padding: 10px 25px;
+    font-size: 1em;
+    font-family: sans-serif; /* Använd vanligt typsnitt för "Fortsätt" */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#story-modal button:hover {
+    background: #222;
+    color: #fff;
+}
+
+/* ------------------------------------------- */
+
 .question {
     font-weight: bold;
     font-size: 1.2em;
@@ -255,6 +295,12 @@ input[type="text"] {
 #silas-image {
     max-width: 250px;
     margin-bottom: 20px;
+    filter: grayscale(50%) opacity(0.8);
+}
+
+#silas-modal-image {
+    max-width: 150px;
+    margin-bottom: 15px;
     filter: grayscale(50%) opacity(0.8);
 }
 

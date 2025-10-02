@@ -11,42 +11,6 @@ const ATTEMPTS_BEFORE_CHOICES = 3;
 const DEVELOPER_MODE = true;
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
-// ------------------------------------------------------
-// MONSTER-INSTÄLLNINGAR
-// ------------------------------------------------------
-
-const ACTIVE_MONSTERS_COUNT = 3;
-const MONSTER_VISIBILITY_DISTANCE = 40;
-const MONSTER_PROXIMITY_NEAR = 10;
-const MONSTER_PROXIMITY_CLOSE = 5;
-const MONSTER_HIT_DISTANCE = 1.5;
-const MONSTER_CHASE_BREAK_DISTANCE = 4;
-
-const monsterTypes = [
-    { id: 0, name: "zombie", icon: '🧟', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
-    { id: 1, name: "vampire", icon: '🧛', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
-    { id: 2, name: "clown", icon: '🤡', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
-    { id: 3, name: "demon", icon: '👹', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
-    { id: 4, name: "insekt", icon: '🦟', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
-    { id: 5, name: "spindel", icon: '🕷️', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
-    { id: 6, name: "wolf", icon: '🐺', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
-    { id: 7, name: "hamster", icon: '🐹', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
-];
-
-const monsters = [
-    { typeId: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2839, lng: 17.7846 }, { lat: 59.2837, lng: 17.7850 }] },
-    { typeId: 1, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
-    { typeId: 2, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
-    { typeId: 3, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
-    { typeId: 4, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
-    { typeId: 5, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
-    { typeId: 6, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
-    { typeId: 7, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
-];
-
-// ------------------------------------------------------
-// LEDTRÅDAR OCH STORY
-// ------------------------------------------------------
 const locations = [
     { position: { lat: 59.2839, lng: 17.7846 }, title: "Ett Eko vid Anslagstavlan", story: "Silas röst är tydligast här. 'Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.'", task: "Hur många häftstift sitter i den övre, vänstra fjärdedelen av tavlan?", answer: "7", choices: ["5", "7", "9"], nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter..." },
     { position: { lat: 59.2838, lng: 17.7855 }, title: "Minnen vid Gungorna", story: "'Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.'", task: "Vilken färg har sätet på gungan som är längst till höger?", answer: "röd", choices: ["Grön", "Blå", "Röd"], nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé..." },
@@ -59,6 +23,32 @@ const locations = [
     { position: { lat: 59.2847, lng: 17.7841 }, title: "Den Tysta Matchen", story: "'Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.'", task: "Gå till det norra målet. Hur många rostiga skruvar håller fast den vänstra stolpen i marken?", answer: "3", choices: ["2", "3", "4"], nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!" },
     { position: { lat: 59.2851, lng: 17.7866 }, title: "Silas Sista Gömställe", story: "Silas viskar: 'Den är här, vid foten av stammen. Snälla, hitta den.'", task: "", answer: "", nextClue: "" }
 ];
+const ACTIVE_MONSTERS_COUNT = 3;
+const MONSTER_VISIBILITY_DISTANCE = 40;
+const monsterTypes = [
+    { id: 0, name: "zombie", icon: '🧟', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
+    { id: 1, name: "vampire", icon: '🧛', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
+    { id: 2, name: "clown", icon: '🤡', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
+    { id: 3, name: "demon", icon: '👹', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
+    { id: 4, name: "insekt", icon: '🦟', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
+    { id: 5, name: "spindel", icon: '🕷️', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
+    { id: 6, name: "wolf", icon: '🐺', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
+    { id: 7, name: "hamster", icon: '🐹', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
+];
+const monsters = [
+    { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
+    { typeId: 1, spawnOnClue: 2, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
+    { typeId: 2, spawnOnClue: 4, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
+    { typeId: 3, spawnOnClue: 6, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
+    { typeId: 4, spawnOnClue: 7, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
+    { typeId: 5, spawnOnClue: 8, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
+    { typeId: 6, spawnOnClue: 1, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
+    { typeId: 7, spawnOnClue: 5, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
+];
+const MONSTER_PROXIMITY_NEAR = 10;
+const MONSTER_PROXIMITY_CLOSE = 5;
+const MONSTER_HIT_DISTANCE = 1.5;
+const MONSTER_CHASE_BREAK_DISTANCE = 4;
 
 // ======================================================
 //
@@ -76,6 +66,8 @@ let isFollowingUser = true;
 let wrongAnswerCount = 0;
 let activeMonsterInstances = [];
 let completedMarkers = [];
+let isProcessingAnswer = false;
+let onStoryModalConfirm = null;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -95,6 +87,7 @@ const feedbackText = document.getElementById('feedback-text');
 const distanceInfo = document.getElementById('distance-info');
 const storyBanner = document.getElementById('story-banner');
 const storyModal = document.getElementById('story-modal');
+const storyModalTitle = document.getElementById('story-modal-title');
 const storyModalText = document.getElementById('story-modal-text');
 const storyModalBtn = document.getElementById('story-modal-btn');
 const infoModal = document.getElementById('info-modal');
@@ -153,7 +146,7 @@ function startGame() {
         map.setCenter(mapStartCenter);
         showNextLocation();
         startLocationWatcher();
-        spawnMonsters();
+        checkAndSpawnMonsters(0);
         startGameLoop();
     }, 1000);
 }
@@ -170,7 +163,10 @@ function setupEventListeners() {
         if (event.key === "Enter") checkAnswer();
     });
     storyModalBtn.addEventListener('click', () => {
-        panToNextLocation();
+        storyModal.style.display = 'none';
+        if (onStoryModalConfirm) {
+            onStoryModalConfirm();
+        }
     });
     infoModalBtn.addEventListener('click', () => {
         infoModal.style.display = 'none';
@@ -215,8 +211,15 @@ function showTreasureConfirmation() {
     treasureModal.style.display = 'flex';
 }
 
+function showSilasModal(title, text, buttonText, callback) {
+    storyModalTitle.textContent = title;
+    storyModalText.textContent = text;
+    storyModalBtn.textContent = buttonText;
+    onStoryModalConfirm = callback;
+    storyModal.style.display = 'flex';
+}
+
 async function panToNextLocation() {
-    storyModal.style.display = 'none';
     storyBanner.textContent = locations[currentIndex].nextClue;
     currentIndex++;
     const nextLocation = locations[currentIndex];
@@ -244,6 +247,8 @@ function openTaskModal() {
     choicesContainer.style.display = 'none';
     choicesContainer.innerHTML = '';
     wrongAnswerCount = 0;
+    isProcessingAnswer = false;
+    submitAnswerBtn.disabled = false;
 }
 
 function showNextLocation() {
@@ -262,7 +267,9 @@ function showNextLocation() {
             if (isTreasure) {
                 showTreasureConfirmation();
             } else {
-                openTaskModal();
+                showSilasModal(location.title, location.story, "Visa gåtan", () => {
+                    openTaskModal();
+                });
             }
         } else {
             const targetName = isTreasure ? "skatten" : "ledtråden";
@@ -299,12 +306,20 @@ function showMultipleChoice() {
 }
 
 function checkAnswer() {
+    if (isProcessingAnswer) return;
+    isProcessingAnswer = true;
+    submitAnswerBtn.disabled = true;
     const location = locations[currentIndex];
     let userAnswer;
     const choiceIsVisible = choicesContainer.style.display === 'block';
     if (choiceIsVisible) {
         const selectedChoice = document.querySelector('input[name="choices"]:checked');
-        if (selectedChoice) { userAnswer = selectedChoice.value; } else { showInfoModal("Inget val gjort", "Du måste välja ett alternativ!"); return; }
+        if (selectedChoice) { userAnswer = selectedChoice.value; } else {
+            showInfoModal("Inget val gjort", "Du måste välja ett alternativ!");
+            isProcessingAnswer = false;
+            submitAnswerBtn.disabled = false;
+            return;
+        }
     } else {
         userAnswer = taskAnswer.value.trim();
     }
@@ -335,13 +350,24 @@ function checkAnswer() {
             feedbackText.textContent = "Fel svar. Försök igen.";
             feedbackText.style.color = "#ff0000";
         }
+        setTimeout(() => {
+            isProcessingAnswer = false;
+            submitAnswerBtn.disabled = false;
+        }, 1000);
     }
 }
 
 function showStoryUpdate() {
     const nextClueText = locations[currentIndex].nextClue;
-    storyModalText.textContent = nextClueText;
-    storyModal.style.display = 'flex';
+    if (nextClueText) {
+        showSilasModal("Silas minne klarnar...", nextClueText, "Fortsätt...", () => {
+            const justCompletedIndex = currentIndex;
+            panToNextLocation();
+            checkAndSpawnMonsters(justCompletedIndex + 1);
+        });
+    } else {
+        showEndScreen();
+    }
 }
 
 function updateDistance() {
@@ -394,16 +420,17 @@ function showEndScreen() {
     document.getElementById('treasure-location').textContent = treasureLocationDescription;
 }
 
-function spawnMonsters() {
-    const monstersToSpawn = monsters.slice(0, ACTIVE_MONSTERS_COUNT);
+function checkAndSpawnMonsters(clueIndex) {
+    const monstersToSpawn = monsters.filter(m => m.spawnOnClue === clueIndex);
     monstersToSpawn.forEach(monsterData => {
+        if (activeMonsterInstances.length >= ACTIVE_MONSTERS_COUNT) return;
         const typeInfo = monsterTypes.find(t => t.id === monsterData.typeId);
         if (!typeInfo) return;
         const monsterIcon = document.createElement('div');
         monsterIcon.className = 'monster-icon monster-idle';
         monsterIcon.textContent = typeInfo.icon;
-        const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: null, content: monsterIcon, title: `Monster` });
-        activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: false, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false });
+        const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: DEVELOPER_MODE ? map : null, content: monsterIcon, title: `Monster` });
+        activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false });
     });
 }
 
@@ -417,10 +444,8 @@ function startGameLoop() {
 function updateMonsterPositions() {
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
-
+        const moveFactor = monster.isChasing ? 0.4 : 0.1;
         let targetPosition;
-        const moveFactor = monster.isChasing ? 0.2 : 0.1;
-
         if (monster.isChasing && userPosition) {
             targetPosition = userPosition;
         } else {
@@ -430,7 +455,6 @@ function updateMonsterPositions() {
                 targetPosition = monster.waypoints[monster.currentWaypoint];
             }
         }
-        
         const currentPos = monster.marker.position;
         monster.marker.position = {
             lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * moveFactor,
@@ -443,29 +467,25 @@ function checkMonsterProximity() {
     if (!userPosition) return;
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
-
         const distance = getDistance(userPosition, monster.marker.position);
         let newState = 'idle';
-
         if (distance < MONSTER_HIT_DISTANCE) newState = 'hit';
         else if (distance < MONSTER_PROXIMITY_CLOSE) newState = 'close';
         else if (distance < MONSTER_PROXIMITY_NEAR) newState = 'near';
-
-        if (distance <= MONSTER_VISIBILITY_DISTANCE) {
-            if (!monster.isVisible) { monster.marker.map = map; monster.isVisible = true; }
-        } else {
-            if (monster.isVisible) { monster.marker.map = null; monster.isVisible = false; }
+        if (!DEVELOPER_MODE) {
+            if (distance <= MONSTER_VISIBILITY_DISTANCE) {
+                if (!monster.isVisible) { monster.marker.map = map; monster.isVisible = true; }
+            } else {
+                if (monster.isVisible) { monster.marker.map = null; monster.isVisible = false; }
+            }
         }
-        
         monster.isChasing = (newState === 'near' || newState === 'close');
         if (distance > MONSTER_PROXIMITY_NEAR + MONSTER_CHASE_BREAK_DISTANCE) {
             monster.isChasing = false;
         }
-
         if (newState !== 'close' && newState !== 'hit') {
             monster.hasPlayedCloseSound = false;
         }
-
         if (monster.isVisible) {
             if (newState === 'hit') {
                 handleMonsterHit(monster);
@@ -484,12 +504,10 @@ function checkMonsterProximity() {
         } else {
             monster.isChasing = false;
         }
-
         if (DEVELOPER_MODE && monster.marker && newState !== monster.proximityState) {
             monster.proximityState = newState;
             const iconElement = monster.marker.content;
             iconElement.classList.remove('monster-idle', 'monster-chasing-near', 'monster-chasing-close');
-            
             if (monster.isChasing) {
                 if (newState === 'close') {
                     iconElement.classList.add('monster-chasing-close');
@@ -506,23 +524,18 @@ function checkMonsterProximity() {
 function handleMonsterHit(monster) {
     if (monster.isHit) return;
     monster.isHit = true;
-    
     if (navigator.vibrate) {
         navigator.vibrate(500);
     }
-    
     jumpscareImage.src = monster.typeInfo.jumpscareImg;
     jumpscareScreen.classList.add('active');
-    
     setTimeout(() => {
         sounds[monster.typeInfo.sounds.hit].play();
     }, 200);
-    
     if (monster.marker) {
         monster.marker.map = null;
         monster.marker = null;
     }
-
     setTimeout(() => {
         jumpscareScreen.classList.remove('active');
     }, 2000);
