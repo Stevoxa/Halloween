@@ -34,7 +34,7 @@ const monsterTypes = [
 ];
 
 const monsters = [
-    { typeId: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.284, lng: 17.785 }, { lat: 59.2837, lng: 17.7850 }] },
+    { typeId: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2839, lng: 17.7846 }, { lat: 59.2837, lng: 17.7850 }] },
     { typeId: 1, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
     { typeId: 2, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
     { typeId: 3, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
