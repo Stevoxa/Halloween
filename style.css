@@ -252,10 +252,10 @@ input[type="text"] {
     100% { filter: drop-shadow(0 0 5px gold); }
 }
 
-/* ÄNDRAD: Silas bildstyling - ingen oval, ingen float-animation */
+/* ÄNDRAD: Silas bildstyling - ingen ram/glöd */
 #silas-image {
     max-width: 250px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 20px rgba(173, 216, 230, 0.7)) grayscale(50%) opacity(0.8);
-    /* Inga animationer eller border-radius */
+    /* Endast opacity och grayscale för en spöklik effekt */
+    filter: grayscale(50%) opacity(0.8);
 }
