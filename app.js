@@ -9,19 +9,106 @@ const UNLOCK_DISTANCE = 5;
 const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 const DEVELOPER_MODE = true;
+
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
 const locations = [
-    { position: { lat: 59.2839, lng: 17.7846 }, title: "Ett Eko vid Anslagstavlan", story: "Silas röst är tydligast här. 'Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.'", task: "Hur många häftstift sitter i den övre, vänstra fjärdedelen av tavlan?", answer: "7", choices: ["5", "7", "9"], nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter..." },
-    { position: { lat: 59.2838, lng: 17.7855 }, title: "Minnen vid Gungorna", story: "'Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.'", task: "Vilken färg har sätet på gungan som är längst till höger?", answer: "röd", choices: ["Grön", "Blå", "Röd"], nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé..." },
-    { position: { lat: 59.2845, lng: 17.7858 }, title: "Dödens allé", story: "'Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.'", task: "Hur många av de stora träden längs alléns västra sida har förvridna, dubbla stammar?", answer: "2", choices: ["1", "2", "3"], nextClue: "Ni ser dem... Vägen leder till en plats med ett hemskt förflutet. En plats där ingen fick ro. Galgbacken." },
-    { position: { lat: 59.2848, lng: 17.7852 }, title: "Galgbacken", story: "'De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. Det finns ett ord inristat här, ett ord av varning.'", task: "Vilket är det enskilda ordet som är inristat på den lilla minnesplaketten?", answer: "Glöm", choices: ["Minns", "Glöm", "Vila"], nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare." },
-    { position: { lat: 59.2839, lng: 17.7862 }, title: "Kråkslottet på höjden", story: "'Från detta hus såg jag hela världen', säger Silas. 'En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.'", task: "Addera de två siffrorna i husnumret. (Exempel: Nr 24 blir 2+4=6).", answer: "6", choices: ["5", "6", "8"], nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron." },
-    { position: { lat: 59.2842, lng: 17.7845 }, title: "Trollbron", story: "'Skynda er över', väser Silas. 'Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!'", task: "Hur många träplankor utgör själva gångbanan på bron?", answer: "12", choices: ["10", "12", "15"], nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot." },
-    { position: { lat: 59.2835, lng: 17.7848 }, title: "De Silverglänsande Kloten", story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus från skuggorna.'", task: "Vad blir poängen om du multiplicerar antalet bänkar med antalet papperskorgar vid planen?", answer: "2", choices: ["1", "2", "4"], nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen." },
-    { position: { lat: 59.2850, lng: 17.7865 }, title: "Offerplatsen", story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", task: "Hur många stora steg tar det att gå tvärs över den brända cirkeln?", answer: "8", choices: ["5", "8", "11"], nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt." },
-    { position: { lat: 59.2847, lng: 17.7841 }, title: "Den Tysta Matchen", story: "'Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.'", task: "Gå till det norra målet. Hur många rostiga skruvar håller fast den vänstra stolpen i marken?", answer: "3", choices: ["2", "3", "4"], nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!" },
-    { position: { lat: 59.2851, lng: 17.7866 }, title: "Silas Sista Gömställe", story: "Silas viskar: 'Den är här, vid foten av stammen. Snälla, hitta den.'", task: "", answer: "", nextClue: "" }
+    { 
+        position: { lat: 59.2839, lng: 17.7846 }, 
+        title: "Ett Eko vid Anslagstavlan", 
+        story: "Silas röst är tydligast här. 'Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.'", 
+        task: "Hur många häftstift sitter i den övre, vänstra fjärdedelen av tavlan?", 
+        taskImage: "images/task_anslagstavlan.png",
+        answer: "7", 
+        choices: ["5", "7", "9"], 
+        nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter..." 
+    },
+    { 
+        position: { lat: 59.2838, lng: 17.7855 }, 
+        title: "Minnen vid Gungorna", 
+        story: "'Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.'", 
+        task: "Vilken färg har sätet på gungan som är längst till höger?", 
+        taskImage: "images/task_gungorna.png",
+        answer: "röd", 
+        choices: ["Grön", "Blå", "Röd"], 
+        nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé..." 
+    },
+    { 
+        position: { lat: 59.2845, lng: 17.7858 }, 
+        title: "Dödens allé", 
+        story: "'Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.'", 
+        task: "Hur många av de stora träden längs alléns västra sida har förvridna, dubbla stammar?", 
+        taskImage: "images/task_dödensallé.png",
+        answer: "2", 
+        choices: ["1", "2", "3"], 
+        nextClue: "Ni ser dem... Vägen leder till en plats med ett hemskt förflutet. En plats där ingen fick ro. Galgbacken." 
+    },
+    { 
+        position: { lat: 59.2848, lng: 17.7852 }, 
+        title: "Galgbacken", 
+        story: "'De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. Det finns ett ord inristat här, ett ord av varning.'", 
+        task: "Vilket är det enskilda ordet som är inristat på den lilla minnesplaketten?", 
+        taskImage: "images/task_galgbacken.png",
+        answer: "Glöm", 
+        choices: ["Minns", "Glöm", "Vila"], 
+        nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare." 
+    },
+    { 
+        position: { lat: 59.2839, lng: 17.7862 }, 
+        title: "Kråkslottet på höjden", 
+        story: "'Från detta hus såg jag hela världen', säger Silas. 'En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.'", 
+        task: "Addera de två siffrorna i husnumret. (Exempel: Nr 24 blir 2+4=6).", 
+        taskImage: "images/task_kråkslottet.png",
+        answer: "6", 
+        choices: ["5", "6", "8"], 
+        nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron." 
+    },
+    { 
+        position: { lat: 59.2842, lng: 17.7845 }, 
+        title: "Trollbron", 
+        story: "'Skynda er över', väser Silas. 'Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!'", 
+        task: "Hur många träplankor utgör själva gångbanan på bron?", 
+        taskImage: "images/task_trollbron.png",
+        answer: "12", 
+        choices: ["10", "12", "15"], 
+        nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot." 
+    },
+    { 
+        position: { lat: 59.2835, lng: 17.7848 }, 
+        title: "De Silverglänsande Kloten", 
+        story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus från skuggorna.'", 
+        task: "Vad blir poängen om du multiplicerar antalet bänkar med antalet papperskorgar vid planen?", 
+        taskImage: "images/task_bouleplanen.png",
+        answer: "2", 
+        choices: ["1", "2", "4"], 
+        nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen." 
+    },
+    { 
+        position: { lat: 59.2850, lng: 17.7865 }, 
+        title: "Offerplatsen", 
+        story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", 
+        task: "Hur många stora steg tar det att gå tvärs över den brända cirkeln?", 
+        taskImage: "images/task_offerplatsen.png",
+        answer: "8", 
+        choices: ["5", "8", "11"], 
+        nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt." 
+    },
+    { 
+        position: { lat: 59.2847, lng: 17.7841 }, 
+        title: "Den Tysta Matchen", 
+        story: "'Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.'", 
+        task: "Gå till det norra målet. Hur många rostiga skruvar håller fast den vänstra stolpen i marken?", 
+        taskImage: "images/task_fotbollsplanen.png",
+        answer: "3", 
+        choices: ["2", "3", "4"], 
+        nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!" 
+    },
+    { 
+        position: { lat: 59.2851, lng: 17.7866 }, 
+        title: "Silas Sista Gömställe", 
+        story: "Silas viskar: 'Den är här, vid foten av stammen. Snälla, hitta den.'", 
+        task: "", answer: "", nextClue: "" 
+    }
 ];
 const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
@@ -79,6 +166,7 @@ const endScreen = document.getElementById('end-screen');
 const startBtn = document.getElementById('start-btn');
 const modal = document.getElementById('task-modal');
 const taskTitle = document.getElementById('task-title');
+const taskImageElement = document.getElementById('task-image');
 const taskStory = document.getElementById('task-story');
 const taskQuestion = document.getElementById('task-question');
 const taskAnswer = document.getElementById('task-answer');
@@ -99,6 +187,7 @@ const jumpscareScreen = document.getElementById('jumpscare-screen');
 const jumpscareImage = document.getElementById('jumpscare-image');
 const treasureModal = document.getElementById('treasure-modal');
 const treasureModalBtn = document.getElementById('treasure-modal-btn');
+const choicesPrompt = document.getElementById('choices-prompt');
 
 const sounds = {
     correct: new Audio('audio/correct_answer.mp3'),
@@ -158,9 +247,18 @@ function setupEventListeners() {
         introScreen.classList.add('active');
         setTimeout(startGame, 6000);
     });
-    submitAnswerBtn.addEventListener('click', checkAnswer);
+    submitAnswerBtn.addEventListener('click', () => {
+        if (submitAnswerBtn.textContent === "Fortsätt...") {
+            modal.style.display = 'none';
+            showStoryUpdate();
+        } else {
+            checkAnswer();
+        }
+    });
     taskAnswer.addEventListener('keyup', (event) => {
-        if (event.key === "Enter") checkAnswer();
+        if (event.key === "Enter") {
+            submitAnswerBtn.click();
+        }
     });
     storyModalBtn.addEventListener('click', () => {
         storyModal.style.display = 'none';
@@ -211,8 +309,8 @@ function showTreasureConfirmation() {
     treasureModal.style.display = 'flex';
 }
 
-function showSilasModal(title, text, buttonText, callback) {
-    storyModalTitle.textContent = title;
+function showSilasModal(text, buttonText, callback) {
+    storyModalTitle.textContent = "";
     storyModalText.textContent = text;
     storyModalBtn.textContent = buttonText;
     onStoryModalConfirm = callback;
@@ -239,16 +337,20 @@ function openTaskModal() {
     const location = locations[currentIndex];
     modal.style.display = 'flex';
     taskTitle.textContent = location.title;
-    taskStory.textContent = location.story;
+    taskImageElement.src = location.taskImage;
     taskQuestion.textContent = location.task;
     taskAnswer.value = '';
     feedbackText.textContent = '';
+    feedbackText.className = '';
     taskAnswer.style.display = 'block';
+    taskAnswer.disabled = false;
+    choicesPrompt.textContent = '';
     choicesContainer.style.display = 'none';
     choicesContainer.innerHTML = '';
     wrongAnswerCount = 0;
     isProcessingAnswer = false;
     submitAnswerBtn.disabled = false;
+    submitAnswerBtn.textContent = "Skicka svar";
 }
 
 function showNextLocation() {
@@ -267,7 +369,7 @@ function showNextLocation() {
             if (isTreasure) {
                 showTreasureConfirmation();
             } else {
-                showSilasModal(location.title, location.story, "Visa gåtan", () => {
+                showSilasModal(location.story, "Visa gåtan", () => {
                     openTaskModal();
                 });
             }
@@ -285,10 +387,9 @@ function showNextLocation() {
 function showMultipleChoice() {
     const location = locations[currentIndex];
     taskAnswer.style.display = 'none';
+    choicesPrompt.textContent = 'För svårt? Här är några alternativ...';
     choicesContainer.style.display = 'block';
     choicesContainer.innerHTML = '';
-    feedbackText.textContent = `För svårt? Här är några alternativ...`;
-    feedbackText.style.color = '#ffaa77';
     location.choices.forEach(choice => {
         const id = `choice-${choice.replace(/\s+/g, '')}`;
         const label = document.createElement('label');
@@ -326,29 +427,30 @@ function checkAnswer() {
     if (userAnswer.toLowerCase() === location.answer.toLowerCase()) {
         sounds.correct.play();
         feedbackText.textContent = "Rätt svar!";
-        feedbackText.style.color = "#00ff00";
+        feedbackText.className = 'feedback-success';
+        taskAnswer.disabled = true;
+        document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
+        submitAnswerBtn.textContent = "Fortsätt...";
+        isProcessingAnswer = false;
+        submitAnswerBtn.disabled = false;
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
             currentMarker.gmpClickable = false;
             completedMarkers.push(currentMarker);
             currentMarker = null;
         }
-        setTimeout(() => {
-            modal.style.display = 'none';
-            showStoryUpdate();
-        }, 1500);
     } else {
         sounds.wrong.play();
         if (!choiceIsVisible) {
             wrongAnswerCount++;
             feedbackText.textContent = `Fel svar. Försök igen. (${wrongAnswerCount}/${ATTEMPTS_BEFORE_CHOICES})`;
-            feedbackText.style.color = "#ff0000";
+            feedbackText.className = 'feedback-error';
             if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) {
                 showMultipleChoice();
             }
         } else {
             feedbackText.textContent = "Fel svar. Försök igen.";
-            feedbackText.style.color = "#ff0000";
+            feedbackText.className = 'feedback-error';
         }
         setTimeout(() => {
             isProcessingAnswer = false;
@@ -360,7 +462,7 @@ function checkAnswer() {
 function showStoryUpdate() {
     const nextClueText = locations[currentIndex].nextClue;
     if (nextClueText) {
-        showSilasModal("Silas minne klarnar...", nextClueText, "Fortsätt...", () => {
+        showSilasModal(nextClueText, "Fortsätt...", () => {
             const justCompletedIndex = currentIndex;
             panToNextLocation();
             checkAndSpawnMonsters(justCompletedIndex + 1);
