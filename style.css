@@ -231,8 +231,8 @@ input[type="text"] {
 .monster-icon {
     font-size: 2.2em;
     opacity: 0.9;
-    filter: drop-shadow(0 0 5px #ff0000);
     animation: monster-bob 5s ease-in-out infinite;
+    transition: filter 0.5s ease-in-out;
 }
 
 @keyframes monster-bob {
@@ -252,10 +252,18 @@ input[type="text"] {
     100% { filter: drop-shadow(0 0 5px gold); }
 }
 
-/* ÄNDRAD: Silas bildstyling - ingen ram/glöd */
 #silas-image {
     max-width: 250px;
     margin-bottom: 20px;
-    /* Endast opacity och grayscale för en spöklik effekt */
     filter: grayscale(50%) opacity(0.8);
+}
+
+.monster-idle {
+    filter: drop-shadow(0 0 5px #ff0000);
+}
+.monster-chasing-near {
+    filter: drop-shadow(0 0 8px yellow);
+}
+.monster-chasing-close {
+    filter: drop-shadow(0 0 8px orange);
 }

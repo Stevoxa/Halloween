@@ -11,83 +11,15 @@
 </head>
 <body>
 
-    <!-- 1. Startskärm -->
-    <div id="start-screen" class="screen active">
-        <div class="content">
-            <h1>Spökjägarna</h1>
-            <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p>
-            <button id="start-btn">Börja Jakten</button>
-        </div>
-    </div>
-
-    <!-- Intro-skärm med Silas -->
-    <div id="intro-screen" class="screen">
-        <div class="content">
-            <img id="silas-image" src="images/silas.png" alt="Anden Silas">
-            <p id="intro-text" class="story"></p>
-        </div>
-    </div>
-
-    <!-- 2. Kartvyn (Huvudskärmen) -->
-    <div id="map-screen" class="screen">
-        <div id="map"></div>
-        <div id="story-banner"></div>
-        <div id="distance-info">Väntar på din position...</div>
-    </div>
-
-    <!-- 3. Uppgifts-modal (Pop-up) -->
-    <div id="task-modal" class="modal">
-        <div class="modal-content">
-            <h2 id="task-title"></h2>
-            <p id="task-story"></p>
-            <p id="task-question" class="question"></p>
-            <input type="text" id="task-answer" placeholder="Skriv ditt svar här...">
-            <div id="choices-container"></div>
-            <button id="submit-answer-btn">Skicka svar</button>
-            <p id="feedback-text"></p>
-        </div>
-    </div>
-    
-    <!-- Pop-up för story-uppdateringar -->
-    <div id="story-modal" class="modal">
-        <div class="modal-content">
-            <h2>Ledtråd upplåst!</h2>
-            <p id="story-modal-text" class="story"></p>
-            <button id="story-modal-btn">Fortsätt...</button>
-        </div>
-    </div>
-    
-    <!-- Generell pop-up för information -->
-    <div id="info-modal" class="modal">
-        <div class="modal-content">
-            <h2 id="info-modal-title"></h2>
-            <p id="info-modal-text" class="story"></p>
-            <button id="info-modal-btn">Okej</button>
-        </div>
-    </div>
-
-    <!-- Pop-up för att bekräfta skatten -->
-    <div id="treasure-modal" class="modal">
-        <div class="modal-content">
-            <h2>Har du hittat den?</h2>
-            <p class="story">Har ni hittat Silas lilla trähäst?</p>
-            <button id="treasure-modal-btn">Ja, vi har den!</button>
-        </div>
-    </div>
-
-    <!-- 4. Avslutningsskärm -->
-    <div id="end-screen" class="screen">
-        <div class="content">
-            <h1>Uppdrag Slutfört!</h1>
-            <img id="treasure-image" src="images/treasure.png" alt="En skattkista">
-            <p id="treasure-location" class="story"></p>
-        </div>
-    </div>
-
-    <!-- Jumpscare-skärm -->
-    <div id="jumpscare-screen" class="screen">
-        <img id="jumpscare-image" src="" alt="Jump Scare">
-    </div>
+    <div id="start-screen" class="screen active"> <div class="content"> <h1>Spökjägarna</h1> <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p> <button id="start-btn">Börja Jakten</button> </div> </div>
+    <div id="intro-screen" class="screen"> <div class="content"> <img id="silas-image" src="images/silas.png" alt="Anden Silas"> <p id="intro-text" class="story"></p> </div> </div>
+    <div id="map-screen" class="screen"> <div id="map"></div> <div id="story-banner"></div> <div id="distance-info">Väntar på din position...</div> </div>
+    <div id="task-modal" class="modal"> <div class="modal-content"> <h2 id="task-title"></h2> <p id="task-story"></p> <p id="task-question" class="question"></p> <input type="text" id="task-answer" placeholder="Skriv ditt svar här..."> <div id="choices-container"></div> <button id="submit-answer-btn">Skicka svar</button> <p id="feedback-text"></p> </div> </div>
+    <div id="story-modal" class="modal"> <div class="modal-content"> <h2>Ledtråd upplåst!</h2> <p id="story-modal-text" class="story"></p> <button id="story-modal-btn">Fortsätt...</button> </div> </div>
+    <div id="info-modal" class="modal"> <div class="modal-content"> <h2 id="info-modal-title"></h2> <p id="info-modal-text" class="story"></p> <button id="info-modal-btn">Okej</button> </div> </div>
+    <div id="treasure-modal" class="modal"> <div class="modal-content"> <h2>Har du hittat den?</h2> <p class="story">Har ni hittat Silas lilla trähäst?</p> <button id="treasure-modal-btn">Ja, vi har den!</button> </div> </div>
+    <div id="end-screen" class="screen"> <div class="content"> <h1>Uppdrag Slutfört!</h1> <img id="treasure-image" src="images/treasure.png" alt="En skattkista"> <p id="treasure-location" class="story"></p> </div> </div>
+    <div id="jumpscare-screen" class="screen"> <img id="jumpscare-image" src="" alt="Jump Scare"> </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap" async></script>
     <script src="app.js"></script>
