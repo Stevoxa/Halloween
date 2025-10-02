@@ -9,7 +9,7 @@ const UNLOCK_DISTANCE = 5;
 const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 
-const DEVELOPER_MODE = false;
+const DEVELOPER_MODE = true;
 
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 
