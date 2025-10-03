@@ -246,16 +246,21 @@ button:hover {
     animation: float 3s ease-in-out infinite;
 }
 
-/* NYTT: Styling specifikt för Font Awesome-ikoner */
 .marker-icon .fa-solid {
-    font-size: 35px; /* Justera storleken */
-    color: #fff; /* Basfärg */
+    font-size: 35px;
+    color: #fff;
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
 }
 
 .marker-icon.completed {
     animation: none;
     opacity: 0.7;
+}
+
+/* NYTT: Gråare färg och ingen glöd för avklarade ikoner */
+.marker-icon.completed .fa-solid {
+    color: #888;
+    filter: none;
 }
 
 @keyframes float {

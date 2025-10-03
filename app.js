@@ -7,23 +7,23 @@
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
 const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
-const ATTEMPTS_BEFORE_CHOICES = 3; 
+const ATTEMPTS_BEFORE_CHOICES = 2;
 const DEVELOPER_MODE = true;
 
-const ICON_STYLE = 'fontawesome';
+const ICON_STYLE = 'svgrepo';
 
 const ICONS = {
+    svgrepo: {
+        active: '<img src="icons/halloween-ghost.svg" width="28" height="28" alt="ghost" onerror="this.replaceWith(document.createTextNode(\'👻\'))">',
+        completed: '<img src="icons/tombstone.svg" width="28" height="28" alt="tombstone" onerror="this.replaceWith(document.createTextNode(\'🪦\'))">',
+        treasure: '<img src="icons/gem.svg" width="28" height="28" alt="gem" onerror="this.replaceWith(document.createTextNode(\'💎\'))">',
+        player: '<img src="icons/crosshair.svg" width="24" height="24" alt="player" onerror="this.replaceWith(document.createTextNode(\'👤\'))">'
+    },
     emoji: {
         active: '👻',
         completed: '🪦',
         treasure: '💎',
         player: '👤'
-    },
-    fontawesome: {
-        active: '<i class="fa-solid fa-ghost"></i>',
-        completed: '<i class="fa-solid fa-cross"></i>',
-        treasure: '<i class="fa-solid fa-gem"></i>',
-        player: '<i class="fa-solid fa-user-secret"></i>'
     }
 };
 
@@ -160,14 +160,14 @@ const locations = [
 const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
 const monsterTypes = [
-    { id: 0, name: "zombie", icon: '🧟', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
-    { id: 1, name: "vampire", icon: '🧛', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
-    { id: 2, name: "clown", icon: '🤡', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
-    { id: 3, name: "demon", icon: '👹', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
-    { id: 4, name: "insekt", icon: '🦟', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
-    { id: 5, name: "spindel", icon: '🕷️', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
-    { id: 6, name: "wolf", icon: '🐺', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
-    { id: 7, name: "hamster", icon: '🐹', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
+    { id: 0, name: "zombie", icon: '<img src=\"icons/zombie-hand.svg\" width=\"28\" height=\"28\" alt=\"zombie\" onerror=\"this.replaceWith(document.createTextNode(\'🧟\'))\">', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
+    { id: 1, name: "vampire", icon: '<img src=\"icons/vampire.svg\" width=\"28\" height=\"28\" alt=\"vampire\" onerror=\"this.replaceWith(document.createTextNode(\'🧛\'))\">', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
+    { id: 2, name: "clown", icon: '<img src=\"icons/clown.svg\" width=\"28\" height=\"28\" alt=\"clown\" onerror=\"this.replaceWith(document.createTextNode(\'🤡\'))\">', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
+    { id: 3, name: "demon", icon: '<img src=\"icons/devil.svg\" width=\"28\" height=\"28\" alt=\"demon\" onerror=\"this.replaceWith(document.createTextNode(\'😈\'))\">', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
+    { id: 4, name: "insekt", icon: '<img src=\"icons/mosquito.svg\" width=\"28\" height=\"28\" alt=\"insekt\" onerror=\"this.replaceWith(document.createTextNode(\'🪰\'))\">', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
+    { id: 5, name: "spindel", icon: '<img src=\"icons/spider.svg\" width=\"28\" height=\"28\" alt=\"spindel\" onerror=\"this.replaceWith(document.createTextNode(\'🕷️\'))\">', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
+    { id: 6, name: "wolf", icon: '<img src=\"icons/wolf.svg\" width=\"28\" height=\"28\" alt=\"wolf\" onerror=\"this.replaceWith(document.createTextNode(\'🐺\'))\">', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
+    { id: 7, name: "hamster", icon: '<img src=\"icons/hamster.svg\" width=\"28\" height=\"28\" alt=\"hamster\" onerror=\"this.replaceWith(document.createTextNode(\'🐹\'))\">', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
 ];
 const monsters = [
     { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
@@ -335,8 +335,8 @@ function startLocationWatcher() {
         userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
         if (!userMarker) {
             const userMarkerElement = document.createElement('div');
-            userMarkerElement.innerHTML = '👤';
             userMarkerElement.className = 'user-marker-icon';
+            userMarkerElement.innerHTML = ICONS[ICON_STYLE].player;
             userMarker = new AdvancedMarkerElement({ position: userPosition, map: map, content: userMarkerElement, title: 'Din position' });
         } else {
             userMarker.position = userPosition;
@@ -484,8 +484,13 @@ function checkAnswer() {
         taskAnswer.disabled = true;
         document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
         submitAnswerBtn.textContent = "Fortsätt...";
+        // Lås UI så man inte kan klicka vidare för snabbt
+        taskAnswer.disabled = true;
+        document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
+        submitAnswerBtn.disabled = true;
+        // Auto-navigera vidare efter en kort paus
+        setTimeout(() => { modal.style.display = "none"; showStoryUpdate(); }, 1200);
         isProcessingAnswer = false;
-        submitAnswerBtn.disabled = false;
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
             currentMarker.gmpClickable = false;
@@ -501,6 +506,8 @@ function checkAnswer() {
             if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) {
                 showMultipleChoice();
             }
+            taskAnswer.value = '';
+            taskAnswer.focus();
         } else {
             feedbackText.textContent = "Fel svar. Försök igen.";
             feedbackText.className = 'feedback-error';
@@ -580,12 +587,12 @@ function showEndScreen() {
 function checkAndSpawnMonsters(clueIndex) {
     const monstersToSpawn = monsters.filter(m => m.spawnOnClue === clueIndex);
     monstersToSpawn.forEach(monsterData => {
-        if (activeMonsterInstances.length >= ACTIVE_MONSTERS_COUNT) return;
+        if (!DEVELOPER_MODE && activeMonsterInstances.length >= ACTIVE_MONSTERS_COUNT) return;
         const typeInfo = monsterTypes.find(t => t.id === monsterData.typeId);
         if (!typeInfo) return;
         const monsterIcon = document.createElement('div');
         monsterIcon.className = 'monster-icon monster-idle';
-        monsterIcon.textContent = typeInfo.icon;
+        monsterIcon.innerHTML = typeInfo.icon;
         const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: DEVELOPER_MODE ? map : null, content: monsterIcon, title: `Monster` });
         activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false });
     });

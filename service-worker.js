@@ -1,5 +1,5 @@
 // Namn på cachen
-const CACHE_NAME = 'halloween-pwa-cache-v1';
+const CACHE_NAME = 'halloween-pwa-cache-v3';
 
 // Filer som ska sparas i cachen för offline-användning
 const urlsToCache = [
