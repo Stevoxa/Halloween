@@ -10,106 +10,137 @@ const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt 
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 const DEVELOPER_MODE = true;
 
-const storyStartText = "Jag är en viskning i vinden... jag är Silas. Jag är fast här och kommer inte vidare. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
+const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
+const storyStartAudio = "audio/dialogue_start.mp3";
+const endScreenAudio = "audio/dialogue_end.mp3"; // Ljud för epilogen
 
 const locations = [
     { 
         position: { lat: 59.2839, lng: 17.7846 }, 
         title: "Ett Eko vid Anslagstavlan", 
         story: "Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.", 
+        storyAudio: "audio/dialogue_1_story.mp3",
         task: "Jag föds i det tysta, i skuggornas vrå, ett ord blir till många och börjar att gå. Jag växer med viskningar, blir större än sant, och kan krossa ett rykte i byn med min hand. Vad är jag –  ett ord som sprids utan källor?", 
+        taskAudio: "audio/task_1.mp3",
         taskImage: "images/task_anslagstavlan.png",
         answer: "Skvaller", 
         choices: ["Förbannelse", "Ande", "Skvaller"], 
-        nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter..." 
+        nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter...",
+        nextClueAudio: "audio/dialogue_1_next.mp3"
     },
     { 
         position: { lat: 59.2838, lng: 17.7855 }, 
         title: "Minnen vid Gungorna", 
         story: "Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.", 
+        storyAudio: "audio/dialogue_2_story.mp3",
         task: "I rött och vitt bär han sitt skratt, från mörka brunnar har han ofta skatt. Han lockar med ballonger och ett löfte så lent – men mötet med honom blir sällan skönt. Vem väntar vid gungornas minne i nattens sken?", 
+        taskAudio: "audio/task_2.mp3",
         taskImage: "images/task_gungorna.png",
         answer: "Pennywise", 
         choices: ["Pennywise", "Jokern", "Merry Poppins"], 
-        nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé..." 
+        nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé...",
+        nextClueAudio: "audio/dialogue_2_next.mp3"
     },
     { 
         position: { lat: 59.2845, lng: 17.7858 }, 
         title: "Dödens allé", 
-        story: "Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
+        story: "'Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.'", 
+        storyAudio: "audio/dialogue_3_story.mp3",
         task: "När månen är rund och natten är kall, hörs ett yl från skogen, mörkt och kallt. Människa om dagen, men i nattens tid – vilket odjur lurar i Dödens allé?", 
+        taskAudio: "audio/task_3.mp3",
         taskImage: "images/task_dödensallé.png",
         answer: "Varulv", 
         choices: ["Troll", "Varulv", "Gast"], 
-        nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken." 
+        nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken.",
+        nextClueAudio: "audio/dialogue_3_next.mp3"
     },
     { 
         position: { lat: 59.2848, lng: 17.7852 }, 
         title: "Galgbacken", 
         story: "De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. ", 
+        storyAudio: "audio/dialogue_4_story.mp3",
         task: "En plats där dom föll för sitt brott, där livet tog slut med ett rep så kort. Här slutade vägen för många en stackare – vad kallas platsen? Jo, en …", 
+        taskAudio: "audio/task_4.mp3",
         taskImage: "images/task_galgbacken.png",
         answer: "Galgbacke", 
         choices: ["Avrättningsplats", "Galgbacke", "Lekplats"], 
-        nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare." 
+        nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare.",
+        nextClueAudio: "audio/dialogue_4_next.mp3"
     },
     { 
         position: { lat: 59.2839, lng: 17.7862 }, 
         title: "Kråkslottet på höjden", 
         story: "Från detta hus såg jag hela världen. En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.", 
+        storyAudio: "audio/dialogue_5_story.mp3",
         task: "De sover om dagen men jagar i natt, med huggtänder redo och mörkret som skatt. De törstar efter blod i sin eviga jakt – vad är det för varelse som lever på detta sätt?", 
+        taskAudio: "audio/task_5.mp3",
         taskImage: "images/task_kråkslottet.png",
         answer: "Vampyr", 
         choices: ["Gast", "Varulv", "Vampyr"], 
-        nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron." 
+        nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron.",
+        nextClueAudio: "audio/dialogue_5_next.mp3"
     },
     { 
         position: { lat: 59.2842, lng: 17.7845 }, 
         title: "Trollbron", 
         story: "Skynda er över. Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!", 
-        task: "Hur många träplankor utgör själva gångbanan på bron?", 
+        storyAudio: "audio/dialogue_6_story.mp3",
+        task: "Bron bär dig över där skuggorna bor, plankor på rad visar vägen du tror. Men för att gå vidare i nattens plan – hur många plankor bildar gångbanans span?", 
+        taskAudio: "audio/task_6.mp3",
         taskImage: "images/task_trollbron.png",
         answer: "2", 
         choices: ["2", "3", "1"], 
-        nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot." 
+        nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot.",
+        nextClueAudio: "audio/dialogue_6_next.mp3"
     },
     { 
         position: { lat: 59.2835, lng: 17.7848 }, 
         title: "De Silverglänsande Kloten", 
         story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus i skuggorna.'", 
+        storyAudio: "audio/dialogue_7_story.mp3",
         task: "Här klotens klick i tystnaden slår, en paus från skuggor som annars består. Men öppna nu ögonen, räkna med hand – hur många vilsamma bänkar syns från grusets land?", 
+        taskAudio: "audio/task_7.mp3",
         taskImage: "images/task_bouleplanen.png",
         answer: "3", 
         choices: ["5", "1", "3"], 
-        nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen." 
+        nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen.",
+        nextClueAudio: "audio/dialogue_7_next.mp3"
     },
     { 
         position: { lat: 59.2850, lng: 17.7865 }, 
         title: "Offerplatsen", 
         story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", 
+        storyAudio: "audio/dialogue_8_story.mp3",
         task: "En stjärna i natten, ett mörkrets tecken, i gamla ritualer har den funnits i seklen. Med uddarna vassa som ondska och far, hur många spetsar djävulens stjärna har?", 
+        taskAudio: "audio/task_8.mp3",
         taskImage: "images/task_offerplatsen.png",
         answer: "5", 
         choices: ["5", "6", "7"], 
-        nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt." 
+        nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt.",
+        nextClueAudio: "audio/dialogue_8_next.mp3"
     },
     { 
         position: { lat: 59.2847, lng: 17.7841 }, 
         title: "Den Tysta Matchen", 
-        story: "Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner här. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst. Den sista ledtråden fanns på en plats för vila.", 
+        story: "Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst.", 
+        storyAudio: "audio/dialogue_9_story.mp3",
         task: "Där matcherna spelas och bollen far, finns platsen där trötta sin vila tar. Vad finns här vid planen där man slår sig ner?", 
+        taskAudio: "audio/task_9.mp3",
         taskImage: "images/task_fotbollsplanen.png",
         answer: "Bänken", 
         choices: ["Bänken", "Gräset", "Stenen"], 
-        nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!" 
+        nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!",
+        nextClueAudio: "audio/dialogue_9_next.mp3"
     },
     { 
         position: { lat: 59.2851, lng: 17.7866 }, 
         title: "Silas Sista Gömställe", 
         story: "Den är här, vid foten av stammen. Snälla, hitta den.", 
+        storyAudio: "audio/dialogue_10_story.mp3",
         task: "", answer: "", nextClue: "" 
     }
 ];
+
 const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
 const monsterTypes = [
@@ -155,6 +186,7 @@ let activeMonsterInstances = [];
 let completedMarkers = [];
 let isProcessingAnswer = false;
 let onStoryModalConfirm = null;
+let currentPlayingAudio = null;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -244,10 +276,12 @@ function setupEventListeners() {
     startBtn.addEventListener('click', () => {
         startScreen.classList.remove('active');
         introText.textContent = storyStartText;
+        playDialogueAudio(storyStartAudio);
         introScreen.classList.add('active');
-        setTimeout(startGame, 6000);
+        setTimeout(startGame, 23000); // Ändrat till 23 sekunder
     });
     submitAnswerBtn.addEventListener('click', () => {
+        stopCurrentAudio(); // Stoppa ljud när knappen klickas
         if (submitAnswerBtn.textContent === "Fortsätt...") {
             modal.style.display = 'none';
             showStoryUpdate();
@@ -261,6 +295,7 @@ function setupEventListeners() {
         }
     });
     storyModalBtn.addEventListener('click', () => {
+        stopCurrentAudio();
         storyModal.style.display = 'none';
         if (onStoryModalConfirm) {
             onStoryModalConfirm();
@@ -309,11 +344,12 @@ function showTreasureConfirmation() {
     treasureModal.style.display = 'flex';
 }
 
-function showSilasModal(text, buttonText, callback) {
+function showSilasModal(text, buttonText, callback, audioFile) {
     storyModalTitle.textContent = "";
     storyModalText.textContent = text;
     storyModalBtn.textContent = buttonText;
     onStoryModalConfirm = callback;
+    playDialogueAudio(audioFile);
     storyModal.style.display = 'flex';
 }
 
@@ -339,6 +375,7 @@ function openTaskModal() {
     taskTitle.textContent = location.title;
     taskImageElement.src = location.taskImage;
     taskQuestion.textContent = location.task;
+    playDialogueAudio(location.taskAudio); // Spela upp ljud för gåtan
     taskAnswer.value = '';
     feedbackText.textContent = '';
     feedbackText.className = '';
@@ -371,7 +408,7 @@ function showNextLocation() {
             } else {
                 showSilasModal(location.story, "Visa gåtan", () => {
                     openTaskModal();
-                });
+                }, location.storyAudio);
             }
         } else {
             const targetName = isTreasure ? "skatten" : "ledtråden";
@@ -461,12 +498,13 @@ function checkAnswer() {
 
 function showStoryUpdate() {
     const nextClueText = locations[currentIndex].nextClue;
+    const nextClueAudio = locations[currentIndex].nextClueAudio;
     if (nextClueText) {
         showSilasModal(nextClueText, "Fortsätt...", () => {
             const justCompletedIndex = currentIndex;
             panToNextLocation();
             checkAndSpawnMonsters(justCompletedIndex + 1);
-        });
+        }, nextClueAudio);
     } else {
         showEndScreen();
     }
@@ -520,6 +558,7 @@ function showEndScreen() {
     storyBanner.style.display = 'none';
     distanceInfo.style.display = 'none';
     document.getElementById('treasure-location').textContent = treasureLocationDescription;
+    playDialogueAudio(endScreenAudio);
 }
 
 function checkAndSpawnMonsters(clueIndex) {
@@ -607,18 +646,20 @@ function checkMonsterProximity() {
             monster.isChasing = false;
         }
         if (DEVELOPER_MODE && monster.marker && newState !== monster.proximityState) {
-            monster.proximityState = newState;
             const iconElement = monster.marker.content;
-            iconElement.classList.remove('monster-idle', 'monster-chasing-near', 'monster-chasing-close');
-            if (monster.isChasing) {
-                if (newState === 'close') {
-                    iconElement.classList.add('monster-chasing-close');
-                } else {
+            iconElement.className = 'monster-icon';
+            switch(newState) {
+                case 'near':
                     iconElement.classList.add('monster-chasing-near');
-                }
-            } else {
-                iconElement.classList.add('monster-idle');
+                    break;
+                case 'close':
+                    iconElement.classList.add('monster-chasing-close');
+                    break;
+                default:
+                    iconElement.classList.add('monster-idle');
+                    break;
             }
+            monster.proximityState = newState;
         }
     });
 }
@@ -641,6 +682,22 @@ function handleMonsterHit(monster) {
     setTimeout(() => {
         jumpscareScreen.classList.remove('active');
     }, 2000);
+}
+
+function playDialogueAudio(filename) {
+    stopCurrentAudio();
+    if (!filename) return;
+    const newAudio = new Audio(filename);
+    newAudio.play();
+    currentPlayingAudio = newAudio;
+}
+
+function stopCurrentAudio() {
+    if (currentPlayingAudio) {
+        currentPlayingAudio.pause();
+        currentPlayingAudio.currentTime = 0;
+        currentPlayingAudio = null;
+    }
 }
 
 window.initMap = initMap;
