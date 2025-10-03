@@ -10,9 +10,26 @@ const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt 
 const ATTEMPTS_BEFORE_CHOICES = 3; 
 const DEVELOPER_MODE = true;
 
+const ICON_STYLE = 'fontawesome';
+
+const ICONS = {
+    emoji: {
+        active: '👻',
+        completed: '🪦',
+        treasure: '💎',
+        player: '👤'
+    },
+    fontawesome: {
+        active: '<i class="fa-solid fa-ghost"></i>',
+        completed: '<i class="fa-solid fa-cross"></i>',
+        treasure: '<i class="fa-solid fa-gem"></i>',
+        player: '<i class="fa-solid fa-user-secret"></i>'
+    }
+};
+
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
 const storyStartAudio = "audio/dialogue_start.mp3";
-const endScreenAudio = "audio/dialogue_end.mp3"; // Ljud för epilogen
+const endScreenAudio = "audio/dialogue_end.mp3";
 
 const locations = [
     { 
@@ -140,7 +157,6 @@ const locations = [
         task: "", answer: "", nextClue: "" 
     }
 ];
-
 const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
 const monsterTypes = [
@@ -155,13 +171,13 @@ const monsterTypes = [
 ];
 const monsters = [
     { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
-    { typeId: 1, spawnOnClue: 2, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
-    { typeId: 2, spawnOnClue: 4, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
-    { typeId: 3, spawnOnClue: 6, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
-    { typeId: 4, spawnOnClue: 7, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
-    { typeId: 5, spawnOnClue: 8, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
-    { typeId: 6, spawnOnClue: 1, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
-    { typeId: 7, spawnOnClue: 5, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
+    { typeId: 1, spawnOnClue: 0, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
+    { typeId: 2, spawnOnClue: 0, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
+    { typeId: 3, spawnOnClue: 0, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
+    { typeId: 4, spawnOnClue: 0, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
+    { typeId: 5, spawnOnClue: 0, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
+    { typeId: 6, spawnOnClue: 0, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
+    { typeId: 7, spawnOnClue: 0, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
 ];
 const MONSTER_PROXIMITY_NEAR = 10;
 const MONSTER_PROXIMITY_CLOSE = 5;
@@ -278,10 +294,10 @@ function setupEventListeners() {
         introText.textContent = storyStartText;
         playDialogueAudio(storyStartAudio);
         introScreen.classList.add('active');
-        setTimeout(startGame, 23000); // Ändrat till 23 sekunder
+        setTimeout(startGame, 23000);
     });
     submitAnswerBtn.addEventListener('click', () => {
-        stopCurrentAudio(); // Stoppa ljud när knappen klickas
+        stopCurrentAudio();
         if (submitAnswerBtn.textContent === "Fortsätt...") {
             modal.style.display = 'none';
             showStoryUpdate();
@@ -375,7 +391,7 @@ function openTaskModal() {
     taskTitle.textContent = location.title;
     taskImageElement.src = location.taskImage;
     taskQuestion.textContent = location.task;
-    playDialogueAudio(location.taskAudio); // Spela upp ljud för gåtan
+    playDialogueAudio(location.taskAudio);
     taskAnswer.value = '';
     feedbackText.textContent = '';
     feedbackText.className = '';
@@ -539,13 +555,13 @@ function createMarkerIcon(type) {
     const iconDiv = document.createElement('div');
     if (type === 'completed') {
         iconDiv.className = 'marker-icon completed';
-        iconDiv.textContent = '🪦';
+        iconDiv.innerHTML = ICONS[ICON_STYLE].completed;
     } else if (type === 'treasure') {
         iconDiv.className = 'treasure-icon';
-        iconDiv.textContent = '💎';
+        iconDiv.innerHTML = ICONS[ICON_STYLE].treasure;
     } else {
         iconDiv.className = 'marker-icon';
-        iconDiv.textContent = '👻';
+        iconDiv.innerHTML = ICONS[ICON_STYLE].active;
     }
     return iconDiv;
 }
