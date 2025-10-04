@@ -61,11 +61,11 @@ const locations = [
     { 
         position: { lat: 59.2845, lng: 17.7858 }, 
         title: "Dödens allé", 
-        story: "'Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.'", 
+        story: "Träden här har sett allt. Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
         storyAudio: "audio/dialogue_3_story.mp3",
         task: "När månen är rund och natten är kall, hörs ett yl från skogen, mörkt och kallt. Människa om dagen, men i nattens tid – vilket odjur lurar i Dödens allé?", 
         taskAudio: "audio/task_3.mp3",
-        taskImage: "images/task_dödensallé.png",
+        taskImage: "images/task_dodensalle.png",
         answer: "Varulv", 
         choices: ["Troll", "Varulv", "Gast"], 
         nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken.",
