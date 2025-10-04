@@ -100,17 +100,15 @@ button:hover {
     flex-direction: column;
 }
 
-#story-modal .modal-content, #task-modal .modal-content {
+
+
+#task-modal .modal-content {
     background-color: transparent;
     border: none;
     box-shadow: none;
     width: 100%;
     max-width: 100%;
     padding: 0;
-}
-
-#task-modal .modal-content {
-    padding-top: 0;
 }
 
 
@@ -177,11 +175,7 @@ button:hover {
     margin-top: 15px;
 }
 
-#silas-modal-image {
-    max-width: 250px;
-    margin-bottom: 15px;
-    filter: grayscale(50%) opacity(0.8);
-}
+
 
 #task-image {
     display: block;
@@ -358,3 +352,87 @@ button:hover {
 .monster-chasing-close {
     filter: drop-shadow(0 0 8px orange);
 }
+
+#story-modal .modal-content {
+background: transparent;
+border: none;
+box-shadow: none;
+width: 100%;
+max-width: 100%;
+padding: 0;
+}
+
+
+#story-modal-title, #story-modal-text {
+padding-left: 16px;
+padding-right: 16px;
+}
+
+
+/* Default Silas dialog image (not full-bleed) */
+#silas-modal-image {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: 12px auto 16px;
+    object-fit: contain;
+    filter: grayscale(50%) opacity(0.8);
+}
+
+/* Full-bleed mode for the NEXT TASK dialog only */
+#story-modal.next-image .modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+}
+#story-modal.next-image #silas-modal-image.story-image-full {
+    display: block;
+    width: 100%;
+    max-width: none;           /* override default max-width */
+    height: clamp(220px, 38vh, 420px);
+    object-fit: cover;
+    margin: 0;
+}
+
+
+/* Next-task dialog: remove top gap from empty title */
+#story-modal.next-image #story-modal-title {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* === Next Task dialog (full-bleed image) === */
+#story-modal.next-image .modal-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+#story-modal.next-image #story-modal-title {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#story-modal.next-image #silas-modal-image {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: clamp(220px, 38vh, 420px) !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+}
+
+#story-modal.next-image #story-modal-text {
+  padding: 16px !important;
+}
+
