@@ -186,18 +186,23 @@ const monsterTypes = [
     { id: 4, name: "insekt", icon: '<img src="icons/mosquito.svg" width="28" height="28" alt="insekt" onerror="this.replaceWith(document.createTextNode(\'🪰\'))">', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
     { id: 5, name: "spindel", icon: '<img src="icons/spider.svg" width="28" height="28" alt="spindel" onerror="this.replaceWith(document.createTextNode(\'🕷️\'))">', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
     { id: 6, name: "wolf", icon: '<img src="icons/wolf.svg" width="28" height="28" alt="wolf" onerror="this.replaceWith(document.createTextNode(\'🐺\'))">', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
-    { id: 7, name: "hamster", icon: '<img src="icons/hamster.svg" width="28" height="28" alt="hamster" onerror="this.replaceWith(document.createTextNode(\'🐹\'))">', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
+    { id: 7, name: "hamster", icon: '<img src="icons/hamster.svg" width="28" height="28" alt="hamster" onerror="this.replaceWith(document.createTextNode(\'🐹\'))">', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } },
+    { id: 8, name: "zombie", icon: '<img src="icons/zombie-hand.svg" width="28" height="28" alt="zombie" onerror="this.replaceWith(document.createTextNode(\'🧟\'))">', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
+    { id: 9, name: "spindel", icon: '<img src="icons/spider.svg" width="28" height="28" alt="spindel" onerror="this.replaceWith(document.createTextNode(\'🕷️\'))">', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } }
 ];
 
 const monsters = [
-    { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
-    { typeId: 1, spawnOnClue: 0, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
-    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.2843596, lng: 17.78947 }, { lat: 59.284333, lng: 17.789302 }, { lat: 59.284163, lng: 17.789408 }, { lat: 59.283946, lng: 17.789584 }, { lat: 59.28385, lng: 17.789555 }, { lat: 59.283199, lng: 17.788021 }, { lat: 59.284442, lng: 17.786577 }, { lat: 59.284698, lng: 17.788766 }] },
-    { typeId: 3, spawnOnClue: 0, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
-    { typeId: 4, spawnOnClue: 0, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
-    { typeId: 5, spawnOnClue: 0, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
+    { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283081, lng: 17.785847 }, { lat: 59.283497, lng: 17.78669 }] },
+    { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.282347, lng: 17.787538 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }] },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284446, lng: 17.789602 }, { lat: 59.284104, lng: 17.789448 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }] },
+    { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286589, lng: 17.782764 }, { lat: 59.286545, lng: 17.783724 }, { lat: 59.285611, lng: 17.784158 }, { lat: 59.286542, lng: 17.783694 }] },
+    { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283275, lng: 17.784588 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
     { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
-    { typeId: 7, spawnOnClue: 0, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
+    { typeId: 7, spawnOnClue: 6, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] },
+    { typeId: 8, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
+    { typeId: 9, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.284602, lng: 17.784608 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }] }
+
 ];
 
 
@@ -568,6 +573,7 @@ function showStoryUpdate() {
     const nextClueAudio = locations[currentIndex].nextClueAudio;
     if (nextClueText) {
         showSilasModal(nextClueText, "Fortsätt...", () => {const justCompletedIndex = currentIndex;
+            deSpawnOnClue(justCompletedIndex + 1);
             panToNextLocation();
             checkAndSpawnMonsters(justCompletedIndex + 1);
         }, nextClueAudio, locations[currentIndex].nextClueImage);
@@ -631,9 +637,23 @@ function checkAndSpawnMonsters(clueIndex) {
         monsterIcon.className = 'monster-icon monster-idle';
         monsterIcon.innerHTML = typeInfo.icon;
         const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: DEVELOPER_MODE ? map : null, content: monsterIcon, title: `Monster` });
-        activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false });
+        activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false, despawnAt: (typeof monsterData.deSpawnOnClue === 'number' ? monsterData.deSpawnOnClue : null) });
     });
 }
+
+function deSpawnOnClue(clueIndex) {
+    // Remove any active monster whose despawnAt is defined and <= clueIndex
+    if (!Array.isArray(activeMonsterInstances) || activeMonsterInstances.length === 0) return;
+    for (let i = activeMonsterInstances.length - 1; i >= 0; i--) {
+        const inst = activeMonsterInstances[i];
+        if (typeof inst?.despawnAt === 'number' && clueIndex >= inst.despawnAt) {
+            try { if (inst.marker) inst.marker.map = null; } catch (e) {}
+            activeMonsterInstances.splice(i, 1);
+        }
+    }
+}
+
+
 
 function startGameLoop() {
     setInterval(() => {
