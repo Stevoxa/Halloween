@@ -4,14 +4,22 @@
 //
 // ======================================================
 
-const mapStartCenter = { lat: 59.284, lng: 17.785 };
-const UNLOCK_DISTANCE = 5;
-const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
-const ATTEMPTS_BEFORE_CHOICES = 2;
 const DEVELOPER_MODE = true;
 
-const ICON_STYLE = 'svgrepo';
+const mapStartCenter = { lat: 59.284, lng: 17.785 };
+const UNLOCK_DISTANCE = 5;
+const ATTEMPTS_BEFORE_CHOICES = 2;
 
+const ACTIVE_MONSTERS_COUNT = 9;
+const MONSTER_VISIBILITY_DISTANCE = 60;
+const MONSTER_PROXIMITY_NEAR = 50;
+const MONSTER_PROXIMITY_CLOSE = 10;
+const MONSTER_HIT_DISTANCE = 1.5;
+const MONSTER_CHASE_BREAK_DISTANCE = 10;
+
+
+
+const ICON_STYLE = 'svgrepo';
 const ICONS = {
     svgrepo: {
         active: '<img src="icons/halloween-ghost.svg" width="28" height="28" alt="ghost" onerror="this.replaceWith(document.createTextNode(\'👻\'))">',
@@ -28,6 +36,8 @@ const ICONS = {
 };
 
 const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. Jag är fast här. Mitt minne är trasigt, men ni kan hjälpa mig att pussla ihop det. Mitt första minne finns vid en plats där byns hemligheter delas. Leta efter anslagstavlan.";
+const treasureLocationDescription = "Tack... Tack för att ni hittade den. Allt godis. Jag hade sparat det till en speciell dag med mina vänner, en dag som aldrig kom. Jag vill inte att det ska förfaras. Dela det, och tänk på mig. Nu... nu kan jag äntligen vila.";
+
 const storyStartAudio = "audio/dialogue_start.mp3";
 const endScreenAudio = "audio/dialogue_end.mp3";
 
@@ -48,7 +58,7 @@ const locations = [
     { 
         position: { lat: 59.284182, lng: 17.789266 }, 
         title: "Minnen vid Gungorna", 
-        story: "Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.", 
+        story: "Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen från gungorna är bara ett eko nu. En röd balong är allt som finns kvar av minnet.", 
         storyAudio: "audio/dialogue_2_story.mp3",
         task: "I rött och vitt bär han sitt skratt, från mörka brunnar har han ofta skatt. Han lockar med ballonger och ett löfte så lent – men mötet med honom blir sällan skönt. Vem väntar vid gungornas minne i nattens sken?", 
         taskAudio: "audio/task_2.mp3",
@@ -61,7 +71,7 @@ const locations = [
     { 
         position: { lat: 59.282083, lng: 17.783727 }, 
         title: "Dödens allé", 
-        story: "Träden här har sett allt. Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
+        story: "Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
         storyAudio: "audio/dialogue_3_story.mp3",
         task: "När månen är rund och natten är kall, hörs ett yl från skogen, mörkt och kallt. Människa om dagen, men i nattens tid – vilket odjur lurar i Dödens allé?", 
         taskAudio: "audio/task_3.mp3",
@@ -113,7 +123,7 @@ const locations = [
     { 
         position: { lat: 59.28494, lng: 17.785026 }, 
         title: "De Silverglänsande Kloten", 
-        story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus i skuggorna.'", 
+        story: "Här var det tyst. Bara det mjuka klickandet från kloten. En paus i skuggorna.", 
         storyAudio: "audio/dialogue_7_story.mp3",
         task: "Här klotens klick i tystnaden slår, en paus från skuggor som annars består. Men öppna nu ögonen, räkna med hand – hur många vilsamma bänkar syns från grusets land?", 
         taskAudio: "audio/task_7.mp3",
@@ -126,7 +136,7 @@ const locations = [
     { 
         position: { lat: 59.286526, lng: 17.783697 }, 
         title: "Offerplatsen", 
-        story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", 
+        story: "De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.", 
         storyAudio: "audio/dialogue_8_story.mp3",
         task: "En stjärna i natten, ett mörkrets tecken, i gamla ritualer har den funnits i seklen. Med uddarna vassa som ondska och far, hur många spetsar djävulens stjärna har?", 
         taskAudio: "audio/task_8.mp3",
@@ -147,28 +157,30 @@ const locations = [
         answer: "Bänken", 
         choices: ["Bänken", "Gräset", "Stenen"], 
         nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!",
-        nextClueAudio: "audio/dialogue_9_next.mp3"
+        nextClueAudio: "audio/dialogue_9_next.mp3",
+        nextClueImage: "images/task_trad.png"
     },
     { 
         position: { lat: 59.283716, lng: 17.783577 }, 
         title: "Silas Sista Gömställe", 
         story: "Den är här, vid foten av stammen. Snälla, hitta den.", 
         storyAudio: "audio/dialogue_10_story.mp3",
+        taskImage: "images/task_trad.png",
         task: "", answer: "", nextClue: "" 
     }
 ];
-const ACTIVE_MONSTERS_COUNT = 3;
-const MONSTER_VISIBILITY_DISTANCE = 40;
+
 const monsterTypes = [
-    { id: 0, name: "zombie", icon: '<img src=\"icons/zombie-hand.svg\" width=\"28\" height=\"28\" alt=\"zombie\" onerror=\"this.replaceWith(document.createTextNode(\'🧟\'))\">', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
-    { id: 1, name: "vampire", icon: '<img src=\"icons/vampire.svg\" width=\"28\" height=\"28\" alt=\"vampire\" onerror=\"this.replaceWith(document.createTextNode(\'🧛\'))\">', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
-    { id: 2, name: "clown", icon: '<img src=\"icons/clown.svg\" width=\"28\" height=\"28\" alt=\"clown\" onerror=\"this.replaceWith(document.createTextNode(\'🤡\'))\">', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
-    { id: 3, name: "demon", icon: '<img src=\"icons/devil.svg\" width=\"28\" height=\"28\" alt=\"demon\" onerror=\"this.replaceWith(document.createTextNode(\'😈\'))\">', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
-    { id: 4, name: "insekt", icon: '<img src=\"icons/mosquito.svg\" width=\"28\" height=\"28\" alt=\"insekt\" onerror=\"this.replaceWith(document.createTextNode(\'🪰\'))\">', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
-    { id: 5, name: "spindel", icon: '<img src=\"icons/spider.svg\" width=\"28\" height=\"28\" alt=\"spindel\" onerror=\"this.replaceWith(document.createTextNode(\'🕷️\'))\">', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
-    { id: 6, name: "wolf", icon: '<img src=\"icons/wolf.svg\" width=\"28\" height=\"28\" alt=\"wolf\" onerror=\"this.replaceWith(document.createTextNode(\'🐺\'))\">', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
-    { id: 7, name: "hamster", icon: '<img src=\"icons/hamster.svg\" width=\"28\" height=\"28\" alt=\"hamster\" onerror=\"this.replaceWith(document.createTextNode(\'🐹\'))\">', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
+    { id: 0, name: "zombie", icon: '<img src="icons/zombie-hand.svg" width="28" height="28" alt="zombie" onerror="this.replaceWith(document.createTextNode(\'🧟\'))">', jumpscareImg: 'images/zombie_jumpscare.png', sounds: { near: 'zombie_near', close: 'zombie_close', hit: 'zombie_hit' } },
+    { id: 1, name: "vampire", icon: '<img src="icons/vampire.svg" width="28" height="28" alt="vampire" onerror="this.replaceWith(document.createTextNode(\'🧛\'))">', jumpscareImg: 'images/vampire_jumpscare.png', sounds: { near: 'vampire_near', close: 'vampire_close', hit: 'vampire_hit' } },
+    { id: 2, name: "clown", icon: '<img src="icons/clown.svg" width="28" height="28" alt="clown" onerror="this.replaceWith(document.createTextNode(\'🤡\'))">', jumpscareImg: 'images/clown_jumpscare.png', sounds: { near: 'clown_near', close: 'clown_close', hit: 'clown_hit' } },
+    { id: 3, name: "demon", icon: '<img src="icons/devil.svg" width="28" height="28" alt="demon" onerror="this.replaceWith(document.createTextNode(\'😈\'))">', jumpscareImg: 'images/demon_jumpscare.png', sounds: { near: 'demon_near', close: 'demon_close', hit: 'demon_hit' } },
+    { id: 4, name: "insekt", icon: '<img src="icons/mosquito.svg" width="28" height="28" alt="insekt" onerror="this.replaceWith(document.createTextNode(\'🪰\'))">', jumpscareImg: 'images/insekt_jumpscare.png', sounds: { near: 'insekt_near', close: 'insekt_close', hit: 'insekt_hit' } },
+    { id: 5, name: "spindel", icon: '<img src="icons/spider.svg" width="28" height="28" alt="spindel" onerror="this.replaceWith(document.createTextNode(\'🕷️\'))">', jumpscareImg: 'images/spindel_jumpscare.png', sounds: { near: 'spindel_near', close: 'spindel_close', hit: 'spindel_hit' } },
+    { id: 6, name: "wolf", icon: '<img src="icons/wolf.svg" width="28" height="28" alt="wolf" onerror="this.replaceWith(document.createTextNode(\'🐺\'))">', jumpscareImg: 'images/wolf_jumpscare.png', sounds: { near: 'wolf_near', close: 'wolf_close', hit: 'wolf_hit' } },
+    { id: 7, name: "hamster", icon: '<img src="icons/hamster.svg" width="28" height="28" alt="hamster" onerror="this.replaceWith(document.createTextNode(\'🐹\'))">', jumpscareImg: 'images/hamster_jumpscare.png', sounds: { near: 'hamster_near', close: 'hamster_close', hit: 'hamster_hit' } }
 ];
+
 const monsters = [
     { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
     { typeId: 1, spawnOnClue: 0, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
@@ -179,10 +191,7 @@ const monsters = [
     { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
     { typeId: 7, spawnOnClue: 0, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
 ];
-const MONSTER_PROXIMITY_NEAR = 10;
-const MONSTER_PROXIMITY_CLOSE = 5;
-const MONSTER_HIT_DISTANCE = 1.5;
-const MONSTER_CHASE_BREAK_DISTANCE = 4;
+
 
 // ======================================================
 //
@@ -247,16 +256,18 @@ monsterTypes.forEach(type => {
     sounds[type.sounds.hit] = new Audio(`audio/${type.sounds.hit}.mp3`);
 });
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
-            console.log('ServiceWorker registrerad: ', registration);
-        }).catch(registrationError => {
-            console.log('ServiceWorker-registrering misslyckades: ', registrationError);
-        });
+if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(registration => {
+      console.log('ServiceWorker registered:', registration);
+    })
+    .catch(err => {
+      console.log('ServiceWorker registration failed:', err);
     });
-}
+} else {
+  console.log('ServiceWorker skipped: not http(s) or localhost');
 
+}
 async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement: MarkerLibrary } = await google.maps.importLibrary("marker");
@@ -317,10 +328,10 @@ function setupEventListeners() {
             onStoryModalConfirm();
         }
     });
-    infoModalBtn.addEventListener('click', () => {
+    if (infoModalBtn) if (infoModalBtn) infoModalBtn.addEventListener('click', () => {
         infoModal.style.display = 'none';
     });
-    treasureModalBtn.addEventListener('click', () => {
+    if (treasureModalBtn) if (treasureModalBtn) treasureModalBtn.addEventListener('click', () => {
         treasureModal.style.display = 'none';
         showEndScreen();
     });
@@ -357,18 +368,35 @@ function showInfoModal(title, message) {
 }
 
 function showTreasureConfirmation() {
-    treasureModal.style.display = 'flex';
+    const location = locations[currentIndex];
+    // Show last story with the tree image and custom confirm text
+    showSilasModal(
+        location.story,
+        "Ja, vi har hittat skatten",
+        () => { showFinalFarewell(); },
+        location.storyAudio,
+        location.taskImage, /* imageSrc */
+        true /* fullBleed */,
+        ""  /* no title */
+    );
 }
 
-function showSilasModal(text, buttonText, callback, audioFile, imageSrc) {
-    storyModalTitle.textContent = "";
+function showSilasModal(text, buttonText, callback, audioFile, imageSrc, fullBleed, titleText) {
+    // Title
+    if (typeof titleText === 'string') {
+        storyModalTitle.textContent = titleText;
+    } else {
+        storyModalTitle.textContent = "";
+    }
+    // Body + button
     storyModalText.textContent = text;
     storyModalBtn.textContent = buttonText;
-    // Set/default image and toggle full-bleed only for "next task"
-    (function(){
-        const modalEl = document.getElementById('story-modal');
-        const img = document.getElementById('silas-modal-image');
-        if (!img) return;
+    onStoryModalConfirm = callback;
+
+    // Image handling
+    const img = document.getElementById('silas-modal-image');
+    const modalEl = document.getElementById('story-modal');
+    if (img) {
         if (imageSrc) {
             img.src = imageSrc;
             img.classList.add('story-image-full');
@@ -378,8 +406,8 @@ function showSilasModal(text, buttonText, callback, audioFile, imageSrc) {
             img.classList.remove('story-image-full');
             if (modalEl) modalEl.classList.remove('next-image');
         }
-    })();
-    onStoryModalConfirm = callback;
+    }
+
     playDialogueAudio(audioFile);
     storyModal.style.display = 'flex';
 }
@@ -499,13 +527,8 @@ function checkAnswer() {
         taskAnswer.disabled = true;
         document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
         submitAnswerBtn.textContent = "Fortsätt...";
-        // Lås UI så man inte kan klicka vidare för snabbt
-        taskAnswer.disabled = true;
-        document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
-        submitAnswerBtn.disabled = true;
-        // Auto-navigera vidare efter en kort paus
-        setTimeout(() => { modal.style.display = "none"; showStoryUpdate(); }, 1200);
         isProcessingAnswer = false;
+        submitAnswerBtn.disabled = false;
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
             currentMarker.gmpClickable = false;
@@ -521,8 +544,6 @@ function checkAnswer() {
             if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) {
                 showMultipleChoice();
             }
-            taskAnswer.value = '';
-            taskAnswer.focus();
         } else {
             feedbackText.textContent = "Fel svar. Försök igen.";
             feedbackText.className = 'feedback-error';
@@ -537,21 +558,11 @@ function checkAnswer() {
 function showStoryUpdate() {
     const nextClueText = locations[currentIndex].nextClue;
     const nextClueAudio = locations[currentIndex].nextClueAudio;
-
-    // If there is a next location: use explicit nextClueImage OR next location's taskImage
-    // If there is no next location: leave undefined so Silas default is used
-    const hasNext = (currentIndex + 1) < locations.length;
-    const nextIdx = hasNext ? (currentIndex + 1) : currentIndex;
-    const nextImage = hasNext
-        ? (locations[currentIndex].nextClueImage || (locations[nextIdx] && locations[nextIdx].taskImage))
-        : undefined;
-
     if (nextClueText) {
-        showSilasModal(nextClueText, "Fortsätt...", () => {
-            const justCompletedIndex = currentIndex;
+        showSilasModal(nextClueText, "Fortsätt...", () => {const justCompletedIndex = currentIndex;
             panToNextLocation();
             checkAndSpawnMonsters(justCompletedIndex + 1);
-        }, nextClueAudio, nextImage);
+        }, nextClueAudio, locations[currentIndex].nextClueImage);
     } else {
         showEndScreen();
     }
@@ -598,20 +609,14 @@ function createMarkerIcon(type) {
 }
 
 function showEndScreen() {
-    activeMonsterInstances.forEach(monster => { if (monster.marker) monster.marker.map = null; });
-    activeMonsterInstances = [];
-    mapScreen.classList.remove('active');
-    endScreen.classList.add('active');
-    storyBanner.style.display = 'none';
-    distanceInfo.style.display = 'none';
-    document.getElementById('treasure-location').textContent = treasureLocationDescription;
-    playDialogueAudio(endScreenAudio);
+    // Show the final farewell dialog instead of the old end screen.
+    showFinalFarewell();
 }
 
 function checkAndSpawnMonsters(clueIndex) {
     const monstersToSpawn = monsters.filter(m => m.spawnOnClue === clueIndex);
     monstersToSpawn.forEach(monsterData => {
-        if (!DEVELOPER_MODE && activeMonsterInstances.length >= ACTIVE_MONSTERS_COUNT) return;
+        if (activeMonsterInstances.length >= ACTIVE_MONSTERS_COUNT) return;
         const typeInfo = monsterTypes.find(t => t.id === monsterData.typeId);
         if (!typeInfo) return;
         const monsterIcon = document.createElement('div');
@@ -632,7 +637,7 @@ function startGameLoop() {
 function updateMonsterPositions() {
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
-        const moveFactor = monster.isChasing ? 0.4 : 0.1;
+        const moveFactor = monster.isChasing ? 0.3 : 0.1;
         let targetPosition;
         if (monster.isChasing && userPosition) {
             targetPosition = userPosition;
@@ -748,3 +753,11 @@ function stopCurrentAudio() {
 }
 
 window.initMap = initMap;
+
+function showFinalFarewell() {
+    showSilasModal(treasureLocationDescription, "Avsluta", () => {
+        storyModal.style.display = "none";
+    }, endScreenAudio, "images/silas_happy.png");
+    const titleEl = document.getElementById("story-modal-title");
+    if (titleEl) titleEl.textContent = "Farväl";
+}
