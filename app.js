@@ -31,8 +31,9 @@ const storyStartText = "Känner ni mig? Jag är en viskning i vinden... Silas. J
 const storyStartAudio = "audio/dialogue_start.mp3";
 const endScreenAudio = "audio/dialogue_end.mp3";
 
-const locations = [{ 
-        position: { lat: 59.2839, lng: 17.7846 }, 
+const locations = [
+    { 
+        position: { lat: 59.283843, lng: 17.789477 }, 
         title: "Ett Eko vid Anslagstavlan", 
         story: "Här börjar det... där byns hemligheter viskas. Men mitt minne är som ett trasigt papper, fäst med ett fåtal nålar.", 
         storyAudio: "audio/dialogue_1_story.mp3",
@@ -42,10 +43,10 @@ const locations = [{
         answer: "Skvaller", 
         choices: ["Förbannelse", "Ande", "Skvaller"], 
         nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter...",
-        nextClueAudio: "audio/dialogue_1_next.mp3",
-        nextClueImage: "images/task_gungorna.png",
-    }, { 
-        position: { lat: 59.2838, lng: 17.7855 }, 
+        nextClueAudio: "audio/dialogue_1_next.mp3"
+    },
+    { 
+        position: { lat: 59.284182, lng: 17.789266 }, 
         title: "Minnen vid Gungorna", 
         story: "Jag flög så högt här... så högt att jag kunde se över alla tak. Men glädjen är bara ett eko nu. En färg är allt som finns kvar av minnet.", 
         storyAudio: "audio/dialogue_2_story.mp3",
@@ -55,10 +56,10 @@ const locations = [{
         answer: "Pennywise", 
         choices: ["Pennywise", "Jokern", "Merry Poppins"], 
         nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé...",
-        nextClueAudio: "audio/dialogue_2_next.mp3",
-        nextClueImage: "images/task_dodensalle.png",
-    }, { 
-        position: { lat: 59.2845, lng: 17.7858 }, 
+        nextClueAudio: "audio/dialogue_2_next.mp3"
+    },
+    { 
+        position: { lat: 59.282083, lng: 17.783727 }, 
         title: "Dödens allé", 
         story: "Träden här har sett allt. Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
         storyAudio: "audio/dialogue_3_story.mp3",
@@ -68,10 +69,10 @@ const locations = [{
         answer: "Varulv", 
         choices: ["Troll", "Varulv", "Gast"], 
         nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken.",
-        nextClueAudio: "audio/dialogue_3_next.mp3",
-        nextClueImage: "images/task_galgbacken.png",
-    }, { 
-        position: { lat: 59.2848, lng: 17.7852 }, 
+        nextClueAudio: "audio/dialogue_3_next.mp3"
+    },
+    { 
+        position: { lat: 59.28321, lng: 17.786663 }, 
         title: "Galgbacken", 
         story: "De säger att marken här minns. Att de orättvist dömda fortfarande väntar... Jag känner deras sorg. ", 
         storyAudio: "audio/dialogue_4_story.mp3",
@@ -81,10 +82,10 @@ const locations = [{
         answer: "Galgbacke", 
         choices: ["Avrättningsplats", "Galgbacke", "Lekplats"], 
         nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare.",
-        nextClueAudio: "audio/dialogue_4_next.mp3",
-        nextClueImage: "images/task_kråkslottet.png",
-    }, { 
-        position: { lat: 59.2839, lng: 17.7862 }, 
+        nextClueAudio: "audio/dialogue_4_next.mp3"
+    },
+    { 
+        position: { lat: 59.282161, lng: 17.787237 }, 
         title: "Kråkslottet på höjden", 
         story: "Från detta hus såg jag hela världen. En mörk vimpel på taket visade mig vart vinden, och ödet, skulle blåsa.", 
         storyAudio: "audio/dialogue_5_story.mp3",
@@ -94,10 +95,10 @@ const locations = [{
         answer: "Vampyr", 
         choices: ["Gast", "Varulv", "Vampyr"], 
         nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron.",
-        nextClueAudio: "audio/dialogue_5_next.mp3",
-        nextClueImage: "images/task_trollbron.png",
-    }, { 
-        position: { lat: 59.2842, lng: 17.7845 }, 
+        nextClueAudio: "audio/dialogue_5_next.mp3"
+    },
+    { 
+        position: { lat: 59.283275, lng: 17.784597 }, 
         title: "Trollbron", 
         story: "Skynda er över. Gå inte för långsamt. Något lyssnar under plankorna. Räkna dem snabbt!", 
         storyAudio: "audio/dialogue_6_story.mp3",
@@ -107,10 +108,10 @@ const locations = [{
         answer: "2", 
         choices: ["2", "3", "1"], 
         nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot.",
-        nextClueAudio: "audio/dialogue_6_next.mp3",
-        nextClueImage: "images/task_bouleplanen.png",
-    }, { 
-        position: { lat: 59.2835, lng: 17.7848 }, 
+        nextClueAudio: "audio/dialogue_6_next.mp3"
+    },
+    { 
+        position: { lat: 59.28494, lng: 17.785026 }, 
         title: "De Silverglänsande Kloten", 
         story: "'Här var det tyst. Bara det mjuka klickandet från kloten. En paus i skuggorna.'", 
         storyAudio: "audio/dialogue_7_story.mp3",
@@ -120,10 +121,10 @@ const locations = [{
         answer: "3", 
         choices: ["5", "1", "3"], 
         nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen.",
-        nextClueAudio: "audio/dialogue_7_next.mp3",
-        nextClueImage: "images/task_offerplatsen.png",
-    }, { 
-        position: { lat: 59.2850, lng: 17.7865 }, 
+        nextClueAudio: "audio/dialogue_7_next.mp3"
+    },
+    { 
+        position: { lat: 59.286526, lng: 17.783697 }, 
         title: "Offerplatsen", 
         story: "'De säger att det bara var en majbrasa. Men jag känner den gamla askan. Jag känner rädslan. Rädslan påminner mig om en annan plats... en plats full av liv.'", 
         storyAudio: "audio/dialogue_8_story.mp3",
@@ -133,10 +134,10 @@ const locations = [{
         answer: "5", 
         choices: ["5", "6", "7"], 
         nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt.",
-        nextClueAudio: "audio/dialogue_8_next.mp3",
-        nextClueImage: "images/task_fotbollsplanen.png",
-    }, { 
-        position: { lat: 59.2847, lng: 17.7841 }, 
+        nextClueAudio: "audio/dialogue_8_next.mp3"
+    },
+    { 
+        position: { lat: 59.285058, lng: 17.784211 }, 
         title: "Den Tysta Matchen", 
         story: "Jag sprang här, skrattade... Jag planerade en överraskning för mina vänner. En skattjakt. Men jag hann aldrig avsluta den. Allt blev tyst.", 
         storyAudio: "audio/dialogue_9_story.mp3",
@@ -147,13 +148,15 @@ const locations = [{
         choices: ["Bänken", "Gräset", "Stenen"], 
         nextClue: "Ja, den sista viloplatsen... bänken. Det var den sista gåtan... och nu... nu minns jag! Jag minns var jag gömde skatten. Till mitt kungadöme! Trädet som föll. Skynda er!",
         nextClueAudio: "audio/dialogue_9_next.mp3"
-    }, { 
-        position: { lat: 59.2851, lng: 17.7866 }, 
+    },
+    { 
+        position: { lat: 59.283716, lng: 17.783577 }, 
         title: "Silas Sista Gömställe", 
         story: "Den är här, vid foten av stammen. Snälla, hitta den.", 
         storyAudio: "audio/dialogue_10_story.mp3",
         task: "", answer: "", nextClue: "" 
-    }];;
+    }
+];
 const ACTIVE_MONSTERS_COUNT = 3;
 const MONSTER_VISIBILITY_DISTANCE = 40;
 const monsterTypes = [
@@ -169,11 +172,11 @@ const monsterTypes = [
 const monsters = [
     { typeId: 0, spawnOnClue: 0, waypoints: [{ lat: 59.2842, lng: 17.7848 }, { lat: 59.2840, lng: 17.7853 }, { lat: 59.2837, lng: 17.7850 }] },
     { typeId: 1, spawnOnClue: 0, waypoints: [{ lat: 59.2846, lng: 17.7855 }, { lat: 59.2844, lng: 17.7860 }, { lat: 59.2842, lng: 17.7865 }] },
-    { typeId: 2, spawnOnClue: 0, waypoints: [{ lat: 59.2849, lng: 17.7850 }, { lat: 59.2851, lng: 17.7853 }] },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.2843596, lng: 17.78947 }, { lat: 59.284333, lng: 17.789302 }, { lat: 59.284163, lng: 17.789408 }, { lat: 59.283946, lng: 17.789584 }, { lat: 59.28385, lng: 17.789555 }, { lat: 59.283199, lng: 17.788021 }, { lat: 59.284442, lng: 17.786577 }, { lat: 59.284698, lng: 17.788766 }] },
     { typeId: 3, spawnOnClue: 0, waypoints: [{ lat: 59.2835, lng: 17.7845 }, { lat: 59.2837, lng: 17.7842 }] },
     { typeId: 4, spawnOnClue: 0, waypoints: [{ lat: 59.2833, lng: 17.7858 }, { lat: 59.2836, lng: 17.7861 }] },
     { typeId: 5, spawnOnClue: 0, waypoints: [{ lat: 59.2848, lng: 17.7842 }, { lat: 59.2851, lng: 17.7845 }] },
-    { typeId: 6, spawnOnClue: 0, waypoints: [{ lat: 59.2832, lng: 17.7852 }, { lat: 59.2835, lng: 17.7855 }] },
+    { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
     { typeId: 7, spawnOnClue: 0, waypoints: [{ lat: 59.2845, lng: 17.7840 }, { lat: 59.2842, lng: 17.7838 }] },
 ];
 const MONSTER_PROXIMITY_NEAR = 10;
@@ -361,25 +364,20 @@ function showSilasModal(text, buttonText, callback, audioFile, imageSrc) {
     storyModalTitle.textContent = "";
     storyModalText.textContent = text;
     storyModalBtn.textContent = buttonText;
+    // Set/default image and toggle full-bleed only for "next task"
     (function(){
         const modalEl = document.getElementById('story-modal');
         const img = document.getElementById('silas-modal-image');
-        if (img) {
-            if (imageSrc) {
-                img.src = imageSrc;
-                img.classList.add('story-image-full');
-                if (modalEl) modalEl.classList.add('next-image');
-            } else {
-                img.src = 'images/silas.png';
-                img.classList.remove('story-image-full');
-                if (modalEl) modalEl.classList.remove('next-image');
-            }
+        if (!img) return;
+        if (imageSrc) {
+            img.src = imageSrc;
+            img.classList.add('story-image-full');
+            if (modalEl) modalEl.classList.add('next-image');
+        } else {
+            img.src = 'images/silas.png';
+            img.classList.remove('story-image-full');
+            if (modalEl) modalEl.classList.remove('next-image');
         }
-    })();
-    // Set image for Silas modal: default to Silas unless provided by caller
-    (function(){
-        const img = document.getElementById('silas-modal-image');
-        if (img) img.src = imageSrc || 'images/silas.png';
     })();
     onStoryModalConfirm = callback;
     playDialogueAudio(audioFile);
@@ -540,16 +538,17 @@ function showStoryUpdate() {
     const nextClueText = locations[currentIndex].nextClue;
     const nextClueAudio = locations[currentIndex].nextClueAudio;
 
-    // Set Silas modal image to a configured nextClueImage OR the next location's taskImage (fallback to Silas)
-    const nextIdx = Math.min(currentIndex + 1, locations.length - 1);
-    const nextImage = locations[currentIndex].nextClueImage
-        || (locations[nextIdx] && locations[nextIdx].taskImage)
-        || 'images/silas.png';
-    const imgEl = document.getElementById('silas-modal-image');
-    if (imgEl) { imgEl.src = nextImage; imgEl.alt = locations[nextIdx] ? locations[nextIdx].title : 'Silas'; }
+    // If there is a next location: use explicit nextClueImage OR next location's taskImage
+    // If there is no next location: leave undefined so Silas default is used
+    const hasNext = (currentIndex + 1) < locations.length;
+    const nextIdx = hasNext ? (currentIndex + 1) : currentIndex;
+    const nextImage = hasNext
+        ? (locations[currentIndex].nextClueImage || (locations[nextIdx] && locations[nextIdx].taskImage))
+        : undefined;
 
     if (nextClueText) {
-        showSilasModal(nextClueText, "Fortsätt...", () => {const justCompletedIndex = currentIndex;
+        showSilasModal(nextClueText, "Fortsätt...", () => {
+            const justCompletedIndex = currentIndex;
             panToNextLocation();
             checkAndSpawnMonsters(justCompletedIndex + 1);
         }, nextClueAudio, nextImage);
