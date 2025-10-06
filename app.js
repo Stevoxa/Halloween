@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = true;
+const DEVELOPER_MODE = false;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
@@ -13,9 +13,9 @@ const ATTEMPTS_BEFORE_CHOICES = 2;
 const ACTIVE_MONSTERS_COUNT = 9;
 const MONSTER_VISIBILITY_DISTANCE = 60;
 const MONSTER_PROXIMITY_NEAR = 50;
-const MONSTER_PROXIMITY_CLOSE = 10;
+const MONSTER_PROXIMITY_CLOSE = 5;
 const MONSTER_HIT_DISTANCE = 1.5;
-const MONSTER_CHASE_BREAK_DISTANCE = 10;
+const MONSTER_CHASE_BREAK_DISTANCE = 5;
 
 
 
@@ -199,7 +199,7 @@ const monsters = [
     { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283275, lng: 17.784588 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
     { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
-    { typeId: 7, spawnOnClue: 6, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] },
+    { typeId: 7, spawnOnClue: 6, deSpawnOnClue: 9, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] },
     { typeId: 8, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
     { typeId: 9, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.284602, lng: 17.784608 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }] }
 
@@ -665,7 +665,7 @@ function startGameLoop() {
 function updateMonsterPositions() {
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
-        const moveFactor = monster.isChasing ? 0.3 : 0.1;
+        const moveFactor = monster.isChasing ? 0.2 : 0.1;
         let targetPosition;
         if (monster.isChasing && userPosition) {
             targetPosition = userPosition;
