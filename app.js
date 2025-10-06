@@ -53,7 +53,8 @@ const locations = [
         answer: "Skvaller", 
         choices: ["Förbannelse", "Ande", "Skvaller"], 
         nextClue: "Ja... en bit av minnet är tillbaka! Jag minns glädje. Känslan av att flyga. Följ efter...",
-        nextClueAudio: "audio/dialogue_1_next.mp3"
+        nextClueAudio: "audio/dialogue_1_next.mp3",
+        nextClueImage: "images/task_gungorna.png"
     },
     { 
         position: { lat: 59.284182, lng: 17.789266 }, 
@@ -66,7 +67,8 @@ const locations = [
         answer: "Pennywise", 
         choices: ["Pennywise", "Jokern", "Merry Poppins"], 
         nextClue: "Det stämmer... Men efter leken kom skuggorna. Vägen hem var lång och mörk. De kallade den Dödens allé...",
-        nextClueAudio: "audio/dialogue_2_next.mp3"
+        nextClueAudio: "audio/dialogue_2_next.mp3",
+        nextClueImage: "images/task_dodensalle.png"
     },
     { 
         position: { lat: 59.282083, lng: 17.783727 }, 
@@ -79,7 +81,8 @@ const locations = [
         answer: "Varulv", 
         choices: ["Troll", "Varulv", "Gast"], 
         nextClue: "Fort tillbaka... mot en plats med ett hemskt förflutet. En plats där ingen fick ro... galgbacken.",
-        nextClueAudio: "audio/dialogue_3_next.mp3"
+        nextClueAudio: "audio/dialogue_3_next.mp3",
+        nextClueImage: "images/task_galgbacken.png"
     },
     { 
         position: { lat: 59.28321, lng: 17.786663 }, 
@@ -92,7 +95,8 @@ const locations = [
         answer: "Galgbacke", 
         choices: ["Avrättningsplats", "Galgbacke", "Lekplats"], 
         nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare.",
-        nextClueAudio: "audio/dialogue_4_next.mp3"
+        nextClueAudio: "audio/dialogue_4_next.mp3",
+        nextClueImage: "images/task_krakslottet.png"
     },
     { 
         position: { lat: 59.282161, lng: 17.787237 }, 
@@ -101,11 +105,12 @@ const locations = [
         storyAudio: "audio/dialogue_5_story.mp3",
         task: "De sover om dagen men jagar i natt, med huggtänder redo och mörkret som skatt. De törstar efter blod i sin eviga jakt – vad är det för varelse som lever på detta sätt?", 
         taskAudio: "audio/task_5.mp3",
-        taskImage: "images/task_kråkslottet.png",
+        taskImage: "images/task_krakslottet.png",
         answer: "Vampyr", 
         choices: ["Gast", "Varulv", "Vampyr"], 
         nextClue: "Vinden för mig nu till en mörkare plats... en bro över en tyst bäck där man inte skulle gå ensam. Trollbron.",
-        nextClueAudio: "audio/dialogue_5_next.mp3"
+        nextClueAudio: "audio/dialogue_5_next.mp3",
+        nextClueImage: "images/task_trollbron.png"
     },
     { 
         position: { lat: 59.283275, lng: 17.784597 }, 
@@ -118,7 +123,8 @@ const locations = [
         answer: "2", 
         choices: ["2", "3", "1"], 
         nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot.",
-        nextClueAudio: "audio/dialogue_6_next.mp3"
+        nextClueAudio: "audio/dialogue_6_next.mp3",
+        nextClueImage: "images/task_bouleplanen.png"
     },
     { 
         position: { lat: 59.28494, lng: 17.785026 }, 
@@ -131,7 +137,8 @@ const locations = [
         answer: "3", 
         choices: ["5", "1", "3"], 
         nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen.",
-        nextClueAudio: "audio/dialogue_7_next.mp3"
+        nextClueAudio: "audio/dialogue_7_next.mp3",
+        nextClueImage: "images/task_offerplatsen.png" 
     },
     { 
         position: { lat: 59.286526, lng: 17.783697 }, 
@@ -144,7 +151,8 @@ const locations = [
         answer: "5", 
         choices: ["5", "6", "7"], 
         nextClue: "Rädslan... den hjälper mig minnas. Jag minns platsen med alla ropen. Där jag planerade allt.",
-        nextClueAudio: "audio/dialogue_8_next.mp3"
+        nextClueAudio: "audio/dialogue_8_next.mp3",
+        nextClueImage: "images/task_fotbollsplanen.png" 
     },
     { 
         position: { lat: 59.285058, lng: 17.784211 }, 
