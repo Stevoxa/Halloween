@@ -13,11 +13,13 @@ const ATTEMPTS_BEFORE_CHOICES = 2;
 const ACTIVE_MONSTERS_COUNT = 9;
 const MONSTER_VISIBILITY_DISTANCE = 60;
 const MONSTER_PROXIMITY_NEAR = 50;
-const MONSTER_PROXIMITY_CLOSE = 5;
+const MONSTER_PROXIMITY_CLOSE = 6;
 const MONSTER_HIT_DISTANCE = 1.5;
-const MONSTER_CHASE_BREAK_DISTANCE = 5;
+const MONSTER_CHASE_BREAK_DISTANCE = 6;
 
-
+// Monster speed (meters per second)
+const MONSTER_SPEED_NORMAL = 1.5;
+const MONSTER_SPEED_CHASE = 3.0;
 
 const ICON_STYLE = 'svgrepo';
 const ICONS = {
@@ -73,7 +75,7 @@ const locations = [
     { 
         position: { lat: 59.282083, lng: 17.783727 }, 
         title: "Dödens allé", 
-        story: "Träden här har sett allt. Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
+        story: "Träden här har sett allt', viskar Silas. 'Deras grenar är som fingrar. Men några av dem är äldre och mörkare än de andra... de är vridna av sorg.", 
         storyAudio: "audio/dialogue_3_story.mp3",
         task: "När månen är rund och natten är kall, hörs ett yl från skogen, mörkt och kallt. Människa om dagen, men i nattens tid – vilket odjur lurar i Dödens allé?", 
         taskAudio: "audio/task_3.mp3",
@@ -193,11 +195,11 @@ const monsters = [
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283081, lng: 17.785847 }, { lat: 59.283497, lng: 17.78669 }] },
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
     { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.282347, lng: 17.787538 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }] },
-    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }] },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 2.0  },
     { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286589, lng: 17.782764 }, { lat: 59.286545, lng: 17.783724 }, { lat: 59.285611, lng: 17.784158 }, { lat: 59.286542, lng: 17.783694 }] },
     { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283887, lng: 17.786043 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
-    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.286177, lng: 17.783747 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }] },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.285521, lng: 17.784143 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }] , speed: 1.0 },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283168, lng: 17.788025 }, { lat: 59.282445, lng: 17.786460 }, { lat: 59.283006, lng: 17.785513 }, { lat: 59.284572, lng: 17.784544 }] },
     { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
     { typeId: 7, spawnOnClue: 6, deSpawnOnClue: 9, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] }
@@ -305,7 +307,6 @@ async function initMap() {
         center: mapStartCenter,
         zoom: 19,
         disableDefaultUI: true,
-        gestureHandling: "greedy", // ← tillåter ett finger att flytta, två för att zooma
         zoomControl: true,
         mapId: myMapId
     });
@@ -669,33 +670,46 @@ function deSpawnOnClue(clueIndex) {
 
 
 function startGameLoop() {
+    let last = performance.now();
     setInterval(() => {
-        updateMonsterPositions();
+        const now = performance.now();
+        let dt = (now - last) / 1000;
+        if (!Number.isFinite(dt) || dt <= 0) dt = 1.0;
+        last = now;
+        updateMonsterPositions(dt);
         checkMonsterProximity();
     }, 1000);
 }
 
-function updateMonsterPositions() {
-    activeMonsterInstances.forEach(monster => {
-        if (monster.isHit || !monster.marker) return;
-        const moveFactor = monster.isChasing ? 0.2 : 0.1;
-        let targetPosition;
-        if (monster.isChasing && userPosition) {
-            targetPosition = userPosition;
-        } else {
-            targetPosition = monster.waypoints[monster.currentWaypoint];
-            if (getDistance(monster.marker.position, targetPosition) < 1) {
-                monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length;
+function updateMonsterPositions(dt) {
+        activeMonsterInstances.forEach(monster => {
+            if (monster.isHit || !monster.marker) return;
+            let targetPosition;
+            if (monster.isChasing && userPosition) {
+                targetPosition = userPosition;
+            } else {
                 targetPosition = monster.waypoints[monster.currentWaypoint];
+                if (getDistance(monster.marker.position, targetPosition) < 1) {
+                    monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length;
+                    targetPosition = monster.waypoints[monster.currentWaypoint];
+                }
             }
+            const currentPos = monster.marker.position;
+            const distanceMeters = getDistance(currentPos, targetPosition);
+            const base = (typeof monster.speed === 'number' ? monster.speed : MONSTER_SPEED_NORMAL);
+            const speed = monster.isChasing ? Math.max(base * 2, MONSTER_SPEED_CHASE) : base;
+            const maxStep = speed * dt;
+            if (!Number.isFinite(distanceMeters) || distanceMeters <= maxStep) {
+                monster.marker.position = { lat: targetPosition.lat, lng: targetPosition.lng };
+                return;
+            }
+            const frac = maxStep / distanceMeters;
+            monster.marker.position = {
+                lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * frac,
+                lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * frac
+            };
+        });
         }
-        const currentPos = monster.marker.position;
-        monster.marker.position = {
-            lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * moveFactor,
-            lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * moveFactor
-        };
-    });
-}
 
 function checkMonsterProximity() {
     if (!userPosition) return;
