@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#1a1a1a"/>
 </head>
 <body>
-    <div id="start-screen" class="screen active"> <div class="content"> <h1>Spökjägarna</h1> <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p> <button id="start-btn">Börja</button> </div> </div>
+    <div id="start-screen" class="screen active"> <div class="content"> <h1>Spökjägarna</h1> <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p> <button id="start-btn">Börja Jakten</button> </div> </div>
     <div id="intro-screen" class="screen"> <div class="content"> <img id="silas-image" src="images/silas.png" alt="Anden Silas"> <p id="intro-text" class="story"></p> </div> </div>
     <div id="map-screen" class="screen"> <div id="map"></div> <div id="story-banner"></div> <div id="distance-info">Väntar på din position...</div> </div>
     <div id="task-modal" class="modal">
@@ -30,5 +30,43 @@
     <div id="jumpscare-screen" class="screen"> <img id="jumpscare-image" src="" alt="Jump Scare"> </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJXLgPXI5L-zrNRRhXHzjNCFI96kHx1iQ&v=weekly&libraries=marker&loading=async&callback=initMap" async></script>
     <script src="app.js"></script>
+
+<!-- Bakgrundsljud för startskärmen -->
+<audio id="start-audio" src="./audio/spooky_start.mp3" loop></audio>
+
+<script>
+(function () {
+  const audioEl = document.getElementById('start-audio');
+  const btnEl = document.getElementById('start-btn');
+
+  function stopAudio() {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+  }
+
+  // Försök spela direkt när sidan laddas
+  window.addEventListener('load', () => {
+    if (!audioEl) return;
+    audioEl.volume = 0.5;
+    const p = audioEl.play();
+    if (p && typeof p.then === 'function') {
+      p.catch(() => {
+        // Om autoplay blockeras, starta ljudet vid första interaktion
+        const resumeOnce = () => {
+          audioEl.play().catch(() => {});
+          document.removeEventListener('click', resumeOnce);
+        };
+        document.addEventListener('click', resumeOnce, { once: true });
+      });
+    }
+  });
+
+  // Stoppa vid klick på "Börja"
+  if (btnEl) {
+    btnEl.addEventListener('click', stopAudio, { once: true });
+  }
+})();
+</script>
+
 </body>
 </html>
