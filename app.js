@@ -476,7 +476,6 @@ function openTaskModal() {
     isProcessingAnswer = false;
     submitAnswerBtn.disabled = false;
     submitAnswerBtn.textContent = "Skicka svar";
-    submitAnswerBtn.style.display = "";
 }
 
 function showNextLocation() {
@@ -555,18 +554,9 @@ function checkAnswer() {
         showTopFeedback("Ni har löst gåtan och svarat rätt! Välj fortsätt när ni är redo.", true);
         taskAnswer.disabled = true;
         document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
-        submitAnswerBtn.style.display = 'none';
-isProcessingAnswer = false;
-submitAnswerBtn.disabled = true;
-clearTimeout(window.__autoNextTimer);
-window.__autoNextTimer = setTimeout(() => {
-    modal.style.display = 'none';
-    showStoryUpdate();
-    // Restore button defaults for next task
-    submitAnswerBtn.style.display = '';
-    submitAnswerBtn.disabled = false;
-    submitAnswerBtn.textContent = 'Skicka svar';
-}, 4000);
+        submitAnswerBtn.textContent = "Fortsätt...";
+        isProcessingAnswer = false;
+        submitAnswerBtn.disabled = false;
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
             currentMarker.gmpClickable = false;
