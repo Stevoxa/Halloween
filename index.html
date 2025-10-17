@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spökjägarna</title>
+    <title>Silas Sista Vila</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="/images/icon-192.png">
     <meta name="theme-color" content="#1a1a1a"/>
 </head>
 <body>
-    <div id="start-screen" class="screen active"> <div class="content"> <h1>Spökjägarna</h1> <p class="story">En rastlös ande är fången i detta kvarter. Ert uppdrag är att besöka hemsökta platser, lösa gåtorna den lämnat efter sig och hjälpa anden att äntligen finna frid.</p> <button id="start-btn">Börja Jakten</button> </div> </div>
+    <div id="start-screen" class="screen active"> <button id="start-btn">Börja</button></div>
     <div id="intro-screen" class="screen"> <div class="content"> <img id="silas-image" src="images/silas.png" alt="Anden Silas"> <p id="intro-text" class="story"></p> </div> </div>
     <div id="map-screen" class="screen"> <div id="map"></div> <div id="story-banner"></div> <div id="distance-info">Väntar på din position...</div> </div>
     <div id="task-modal" class="modal">
@@ -40,6 +40,7 @@
   const btnEl = document.getElementById('start-btn');
 
   function stopAudio() {
+    if (!audioEl) return;
     audioEl.pause();
     audioEl.currentTime = 0;
   }
@@ -51,12 +52,18 @@
     const p = audioEl.play();
     if (p && typeof p.then === 'function') {
       p.catch(() => {
-        // Om autoplay blockeras, starta ljudet vid första interaktion
-        const resumeOnce = () => {
+        // Om autoplay blockeras, starta ljudet vid första användarinteraktion
+        const resumeOnce = (ev) => {
+          // Om första interaktionen är klick på startknappen: spela INTE upp
+          if (ev && ev.target && ev.target.closest && ev.target.closest('#start-btn')) {
+            document.removeEventListener('click', resumeOnce, true);
+            return;
+          }
           audioEl.play().catch(() => {});
-          document.removeEventListener('click', resumeOnce);
+          document.removeEventListener('click', resumeOnce, true);
         };
-        document.addEventListener('click', resumeOnce, { once: true });
+        // använd capture för att ligga före ev. bubblande handlers
+        document.addEventListener('click', resumeOnce, true);
       });
     }
   });
