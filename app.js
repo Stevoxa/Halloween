@@ -243,6 +243,22 @@ const submitAnswerBtn = document.getElementById('submit-answer-btn');
 const feedbackText = document.getElementById('feedback-text');
 const distanceInfo = document.getElementById('distance-info');
 const storyBanner = document.getElementById('story-banner');
+
+function showTopFeedback(message, isSuccess) {
+    if (!storyBanner) return;
+    storyBanner.textContent = message;
+    storyBanner.style.display = 'block';
+    storyBanner.style.color = isSuccess ? '#ffffff' : '#ff6600';
+    const oldZ = storyBanner.style.zIndex;
+    storyBanner.style.zIndex = '9999';
+    clearTimeout(window.__feedbackHideTimer);
+    window.__feedbackHideTimer = setTimeout(() => {
+        storyBanner.style.display = 'none';
+        storyBanner.style.zIndex = oldZ || '';
+    }, 2500);
+    // also clear inline feedback text if present
+    if (feedbackText) { feedbackText.textContent = ''; }
+}
 const storyModal = document.getElementById('story-modal');
 const storyModalTitle = document.getElementById('story-modal-title');
 const storyModalText = document.getElementById('story-modal-text');
@@ -534,8 +550,7 @@ function checkAnswer() {
     }
     if (userAnswer.toLowerCase() === location.answer.toLowerCase()) {
         sounds.correct.play();
-        feedbackText.textContent = "Rätt svar!";
-        feedbackText.className = 'feedback-success';
+        showTopFeedback("Ni har löst gåtan och svarat rätt! Välj fortsätt när ni är redo.", true);
         taskAnswer.disabled = true;
         document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
         submitAnswerBtn.textContent = "Fortsätt...";
@@ -551,14 +566,12 @@ function checkAnswer() {
         sounds.wrong.play();
         if (!choiceIsVisible) {
             wrongAnswerCount++;
-            feedbackText.textContent = `Fel svar. Försök igen. (${wrongAnswerCount}/${ATTEMPTS_BEFORE_CHOICES})`;
-            feedbackText.className = 'feedback-error';
+            showTopFeedback("Ni har svarat fel. Försök igen!", false);
             if (wrongAnswerCount >= ATTEMPTS_BEFORE_CHOICES) {
                 showMultipleChoice();
             }
         } else {
-            feedbackText.textContent = "Fel svar. Försök igen.";
-            feedbackText.className = 'feedback-error';
+            showTopFeedback("Ni har svarat fel. Försök igen!", false);
         }
         setTimeout(() => {
             isProcessingAnswer = false;

@@ -379,7 +379,7 @@ button:hover {
   overflow: visible;  /* avoid clipping top of the image if any */
 }
 
-/* ===== Start screen redesign (definitive) ===== */
+/* ===== Start screen (restored) ===== */
 #start-screen {
   background: url('./images/start_background.png') center center / cover no-repeat;
   position: absolute;
@@ -395,7 +395,7 @@ button:hover {
   display: none !important;
 }
 
-/* Make the start button match the white modal buttons */
+/* Start button: white outline style */
 #start-btn {
   position: absolute;
   left: 50%;
@@ -411,14 +411,12 @@ button:hover {
   letter-spacing: 1px;
 }
 
-/* Hover like the white buttons (no scale) */
 #start-btn:hover {
   transform: translateX(-50%);
   background: #222;
   color: #fff;
 }
 
-/* Ensure button width doesn't overflow on narrow phones */
 @media (max-width: 400px) {
   #start-btn {
     width: calc(100% - 40px);
