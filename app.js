@@ -13,13 +13,15 @@ const ATTEMPTS_BEFORE_CHOICES = 2;
 const ACTIVE_MONSTERS_COUNT = 9;
 const MONSTER_VISIBILITY_DISTANCE = 60;
 const MONSTER_PROXIMITY_NEAR = 50;
-const MONSTER_PROXIMITY_CLOSE = 6;
+const MONSTER_PROXIMITY_CLOSE = 5;
 const MONSTER_HIT_DISTANCE = 1.5;
 const MONSTER_CHASE_BREAK_DISTANCE = 6;
 
-// Monster speed (meters per second)
+// Monster speed (m/s)
 const MONSTER_SPEED_NORMAL = 1.5;
-const MONSTER_SPEED_CHASE = 3.0;
+const MONSTER_SPEED_CHASE  = 3.0;
+
+
 
 const ICON_STYLE = 'svgrepo';
 const ICONS = {
@@ -195,11 +197,11 @@ const monsters = [
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283081, lng: 17.785847 }, { lat: 59.283497, lng: 17.78669 }] },
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
     { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.282347, lng: 17.787538 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }] },
-    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 2.0  },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 2.0 },
     { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286589, lng: 17.782764 }, { lat: 59.286545, lng: 17.783724 }, { lat: 59.285611, lng: 17.784158 }, { lat: 59.286542, lng: 17.783694 }] },
     { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283887, lng: 17.786043 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
-    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.285521, lng: 17.784143 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }] , speed: 1.0 },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.286177, lng: 17.783747 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }], speed: 1.0 },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283168, lng: 17.788025 }, { lat: 59.282445, lng: 17.786460 }, { lat: 59.283006, lng: 17.785513 }, { lat: 59.284572, lng: 17.784544 }] },
     { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
     { typeId: 7, spawnOnClue: 6, deSpawnOnClue: 9, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] }
@@ -316,18 +318,19 @@ async function initMap() {
 }
 
 function startGame() {
-    introScreen.style.opacity = '0';
-    setTimeout(() => {
-        introScreen.classList.remove('active');
-        mapScreen.classList.add('active');
-        storyBanner.textContent = "Hitta anslagstavlan som markerats av ett spöke.";
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(mapStartCenter);
-        showNextLocation();
-        startLocationWatcher();
-        checkAndSpawnMonsters(0);
-        startGameLoop();
-    }, 1000);
+    // Direkt switch utan blink
+    introScreen.classList.remove('active');
+    mapScreen.classList.add('active');
+    storyBanner.textContent = "Hitta anslagstavlan som markerats av ett spöke.";
+
+    // När kartcontainern är synlig: trigga resize och centrera
+    try { google.maps.event.trigger(map, 'resize'); } catch (e) {}
+    map.setCenter(mapStartCenter);
+
+    showNextLocation();
+    startLocationWatcher();
+    checkAndSpawnMonsters(0);
+    startGameLoop();
 }
 
 function setupEventListeners() {
@@ -478,6 +481,7 @@ function openTaskModal() {
     isProcessingAnswer = false;
     submitAnswerBtn.disabled = false;
     submitAnswerBtn.textContent = "Skicka svar";
+    submitAnswerBtn.style.display = "";
 }
 
 function showNextLocation() {
@@ -556,9 +560,22 @@ function checkAnswer() {
         showTopFeedback("Ni har löst gåtan och svarat rätt! Välj fortsätt när ni är redo.", true);
         taskAnswer.disabled = true;
         document.querySelectorAll('input[name="choices"]').forEach(radio => radio.disabled = true);
-        submitAnswerBtn.textContent = "Fortsätt...";
-        isProcessingAnswer = false;
-        submitAnswerBtn.disabled = false;
+        // Visa topp-feedback (den anropar du redan strax innan)
+	submitAnswerBtn.style.display = 'none';        // dölj knappen
+	isProcessingAnswer = false;
+	submitAnswerBtn.disabled = true;
+
+	clearTimeout(window.__autoNextTimer);
+	window.__autoNextTimer = setTimeout(() => {
+    	modal.style.display = 'none';
+    	showStoryUpdate();
+
+    	// återställ för nästa uppgift
+    	submitAnswerBtn.style.display = '';
+    	submitAnswerBtn.disabled = false;
+    	submitAnswerBtn.textContent = 'Skicka svar';
+	}, 4000);
+        
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
             currentMarker.gmpClickable = false;
@@ -671,46 +688,64 @@ function deSpawnOnClue(clueIndex) {
 
 
 function startGameLoop() {
+    setInterval(() => {
+        updateMonsterPositions();
+        checkMonsterProximity();
+    }, 1000);
+}
+
+function startGameLoop() {
     let last = performance.now();
     setInterval(() => {
         const now = performance.now();
         let dt = (now - last) / 1000;
         if (!Number.isFinite(dt) || dt <= 0) dt = 1.0;
         last = now;
+
         updateMonsterPositions(dt);
         checkMonsterProximity();
     }, 1000);
 }
 
 function updateMonsterPositions(dt) {
-        activeMonsterInstances.forEach(monster => {
-            if (monster.isHit || !monster.marker) return;
-            let targetPosition;
-            if (monster.isChasing && userPosition) {
-                targetPosition = userPosition;
-            } else {
+    activeMonsterInstances.forEach(monster => {
+        if (monster.isHit || !monster.marker) return;
+
+        // Välj mål
+        let targetPosition;
+        if (monster.isChasing && userPosition) {
+            targetPosition = userPosition;
+        } else {
+            targetPosition = monster.waypoints[monster.currentWaypoint];
+            // Byt waypoint när vi är ~1 m ifrån
+            if (getDistance(monster.marker.position, targetPosition) < 1) {
+                monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length;
                 targetPosition = monster.waypoints[monster.currentWaypoint];
-                if (getDistance(monster.marker.position, targetPosition) < 1) {
-                    monster.currentWaypoint = (monster.currentWaypoint + 1) % monster.waypoints.length;
-                    targetPosition = monster.waypoints[monster.currentWaypoint];
-                }
             }
-            const currentPos = monster.marker.position;
-            const distanceMeters = getDistance(currentPos, targetPosition);
-            const base = (typeof monster.speed === 'number' ? monster.speed : MONSTER_SPEED_NORMAL);
-            const speed = monster.isChasing ? Math.max(base * 2, MONSTER_SPEED_CHASE) : base;
-            const maxStep = speed * dt;
-            if (!Number.isFinite(distanceMeters) || distanceMeters <= maxStep) {
-                monster.marker.position = { lat: targetPosition.lat, lng: targetPosition.lng };
-                return;
-            }
-            const frac = maxStep / distanceMeters;
-            monster.marker.position = {
-                lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * frac,
-                lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * frac
-            };
-        });
         }
+
+        // Hur långt kvar i meter?
+        const currentPos = monster.marker.position;
+        const distanceMeters = getDistance(currentPos, targetPosition);
+
+        // Hastighet (m/s): per-instans override eller default
+        const base = (typeof monster.speed === 'number' ? monster.speed : MONSTER_SPEED_NORMAL);
+        const speed = monster.isChasing ? Math.max(base * 2, MONSTER_SPEED_CHASE) : base;
+        const maxStep = speed * dt; // meter detta tick
+
+        if (!Number.isFinite(distanceMeters) || distanceMeters <= maxStep) {
+            monster.marker.position = { lat: targetPosition.lat, lng: targetPosition.lng };
+            return;
+        }
+
+        // Flytta en proportion av vektorn motsv. maxStep meter
+        const frac = maxStep / distanceMeters;
+        monster.marker.position = {
+            lat: currentPos.lat + (targetPosition.lat - currentPos.lat) * frac,
+            lng: currentPos.lng + (targetPosition.lng - currentPos.lng) * frac
+        };
+    });
+}
 
 function checkMonsterProximity() {
     if (!userPosition) return;
