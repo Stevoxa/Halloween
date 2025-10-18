@@ -12,10 +12,10 @@ const ATTEMPTS_BEFORE_CHOICES = 2;
 
 const ACTIVE_MONSTERS_COUNT = 9;
 const MONSTER_VISIBILITY_DISTANCE = 60;
-const MONSTER_PROXIMITY_NEAR = 50;
-const MONSTER_PROXIMITY_CLOSE = 6;
+const MONSTER_PROXIMITY_NEAR = 60;
+const MONSTER_PROXIMITY_CLOSE = 20;
 const MONSTER_HIT_DISTANCE = 1.5;
-const MONSTER_CHASE_BREAK_DISTANCE = 6;
+const MONSTER_CHASE_BREAK_DISTANCE = 20;
 
 // Monster speed (m/s)
 const MONSTER_SPEED_NORMAL = 1.5;
@@ -197,7 +197,7 @@ const monsters = [
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283081, lng: 17.785847 }, { lat: 59.283497, lng: 17.78669 }] },
     { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
     { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.282347, lng: 17.787538 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }] },
-    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 2.0 },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 1.5 },
     { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286589, lng: 17.782764 }, { lat: 59.286545, lng: 17.783724 }, { lat: 59.285611, lng: 17.784158 }, { lat: 59.286542, lng: 17.783694 }] },
     { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
     { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283887, lng: 17.786043 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
@@ -574,7 +574,7 @@ function checkAnswer() {
     	submitAnswerBtn.style.display = '';
     	submitAnswerBtn.disabled = false;
     	submitAnswerBtn.textContent = 'Skicka svar';
-	}, 4000);
+	}, 1500);
         
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
