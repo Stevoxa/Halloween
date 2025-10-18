@@ -48,7 +48,7 @@ const imageFiles = [
   'images/start_background.png','images/start_background_1.png',
   'images/silas.png','images/silas_happy.png',
   'images/clown_jumpscare.png','images/demon_jumpscare.png','images/hamster_jumpscare.png','images/insekt_jumpscare.png','images/spindel_jumpscare.png','images/wolf_jumpscare.png','images/vampire_jumpscare.png','images/zombie_jumpscare.png',
-  'images/task_anslagstavlan.png','images/task_bouleplanen.png','images/task_dodensalle.png','images/task_fotbollsplanen.png','images/task_galgbacken.png','images/task_gunorna.png','images/task_krakslottet.png','images/task_offerlatsen.png','images/task_trad.png','images/task_trollbron.png',
+  'images/task_anslagstavlan.png','images/task_bouleplanen.png','images/task_dodensalle.png','images/task_fotbollsplanen.png','images/task_galgbacken.png','images/task_gungorna.png','images/task_krakslottet.png','images/task_offerplatsen.png','images/task_trad.png','images/task_trollbron.png',
   'images/treasure.png',
 ];
 
