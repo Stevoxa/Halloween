@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = false;
+const DEVELOPER_MODE = true;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
@@ -124,7 +124,7 @@ const locations = [
         task: "Bron bär dig över där skuggorna bor, plankor på rad visar vägen du tror. Men för att gå vidare i nattens plan – hur många plankor bildar gångbanans span?", 
         taskAudio: "audio/task_6.mp3",
         taskImage: "images/task_trollbron.png",
-        answer: "2", 
+        answer: "3", 
         choices: ["2", "3", "1"], 
         nextClue: "Puh... det var nära. Jag minns en lugnare plats. En plats för tystnad och silverklot.",
         nextClueAudio: "audio/dialogue_6_next.mp3",
@@ -138,8 +138,8 @@ const locations = [
         task: "Här klotens klick i tystnaden slår, en paus från skuggor som annars består. Men öppna nu ögonen, räkna med hand – hur många vilsamma bänkar syns från grusets land?", 
         taskAudio: "audio/task_7.mp3",
         taskImage: "images/task_bouleplanen.png",
-        answer: "3", 
-        choices: ["6", "1", "4"], 
+        answer: "2", 
+        choices: ["1", "2", "6"], 
         nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen.",
         nextClueAudio: "audio/dialogue_7_next.mp3",
         nextClueImage: "images/task_offerplatsen.png" 
