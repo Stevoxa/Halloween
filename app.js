@@ -307,6 +307,7 @@ async function initMap() {
         center: mapStartCenter,
         zoom: 19,
         disableDefaultUI: true,
+        gestureHandling: "greedy", // ← tillåter ett finger att flytta, två för att zooma
         zoomControl: true,
         mapId: myMapId
     });
