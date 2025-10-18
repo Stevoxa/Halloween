@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = true;
+const DEVELOPER_MODE = false;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
@@ -13,7 +13,7 @@ const ATTEMPTS_BEFORE_CHOICES = 2;
 const ACTIVE_MONSTERS_COUNT = 9;
 const MONSTER_VISIBILITY_DISTANCE = 60;
 const MONSTER_PROXIMITY_NEAR = 50;
-const MONSTER_PROXIMITY_CLOSE = 5;
+const MONSTER_PROXIMITY_CLOSE = 6;
 const MONSTER_HIT_DISTANCE = 1.5;
 const MONSTER_CHASE_BREAK_DISTANCE = 6;
 
@@ -139,7 +139,7 @@ const locations = [
         taskAudio: "audio/task_7.mp3",
         taskImage: "images/task_bouleplanen.png",
         answer: "3", 
-        choices: ["5", "1", "3"], 
+        choices: ["6", "1", "4"], 
         nextClue: "Men friden varade inte. Jag minns elden. Röken. En plats som brännmärkts av historien... Offerplatsen.",
         nextClueAudio: "audio/dialogue_7_next.mp3",
         nextClueImage: "images/task_offerplatsen.png" 
