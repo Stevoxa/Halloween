@@ -233,6 +233,42 @@ let isProcessingAnswer = false;
 let onStoryModalConfirm = null;
 let currentPlayingAudio = null;
 
+// --- Persistens av progress i localStorage ---
+const STORAGE_KEY = 'silas-progress-v1';
+
+function saveProgress(index = currentIndex) {
+  try {
+    const clamped = Math.max(0, Math.min(index, locations.length - 1));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ currentIndex: clamped }));
+  } catch {}
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (data && Number.isInteger(data.currentIndex)) {
+      currentIndex = Math.max(0, Math.min(data.currentIndex, locations.length - 1));
+    }
+  } catch {}
+}
+
+function renderCompletedFromProgress() {
+  // Återskapa ”gravstenar” för alla klara ledtrådar
+  for (let i = 0; i < currentIndex; i++) {
+    const loc = locations[i];
+    const marker = new AdvancedMarkerElement({
+      position: loc.position,
+      map: map,
+      title: loc.title,
+      content: createMarkerIcon('completed')
+    });
+    marker.gmpClickable = false;
+    completedMarkers.push(marker);
+  }
+}
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const startScreen = document.getElementById('start-screen');
@@ -330,6 +366,9 @@ function startGame() {
     // När kartcontainern är synlig: trigga resize och centrera
     try { google.maps.event.trigger(map, 'resize'); } catch (e) {}
     map.setCenter(mapStartCenter);
+
+    loadProgress();               // <-- NYTT: hämta sparad progress
+    renderCompletedFromProgress(); // <-- NYTT: rita tidigare klara markörer
 
     showNextLocation();
     startLocationWatcher();
@@ -458,6 +497,8 @@ function showSilasModal(text, buttonText, callback, audioFile, imageSrc, fullBle
 async function panToNextLocation() {
     storyBanner.textContent = locations[currentIndex].nextClue;
     currentIndex++;
+    saveProgress(currentIndex); // <-- NYTT: spara att vi står på nästa gåta
+    
     const nextLocation = locations[currentIndex];
     isFollowingUser = false;
     map.panTo(nextLocation.position);
@@ -597,6 +638,9 @@ function checkAnswer() {
 	submitAnswerBtn.style.display = 'none';        // dölj knappen
 	isProcessingAnswer = false;
 	submitAnswerBtn.disabled = true;
+
+ 	// Spara att nästa gåta är aktiv vid ev. omstart
+	saveProgress(Math.min(currentIndex + 1, locations.length - 1));
 
 	clearTimeout(window.__autoNextTimer);
 	window.__autoNextTimer = setTimeout(() => {
