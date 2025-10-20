@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = true;
+const DEVELOPER_MODE = false;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
