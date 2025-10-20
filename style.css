@@ -417,10 +417,39 @@ button:hover {
   color: #fff;
 }
 
+#reset-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 3vh; /* under start/fortsätt som ligger på 10vh */
+  background: transparent !important;
+  border: 2px solid #ccc !important;
+  color: #ccc !important;
+  padding: 10px 25px;
+  font-size: 1em;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  /* inga border-radius/transition – samma som #start-btn */
+}
+
+#reset-btn:hover {
+  /* viktigt: skriv över globala "button:hover { transform: scale(1.05) }" */
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+}
+
 @media (max-width: 400px) {
   #start-btn {
     width: calc(100% - 40px);
     max-width: 320px;
     padding: 10px 16px;
   }
+ #reset-btn {
+    width: calc(100% - 40px);
+    max-width: 320px;
+    padding: 10px 16px;
+  }
 }
+

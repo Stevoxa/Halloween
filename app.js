@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = false;
+const DEVELOPER_MODE = true;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
@@ -269,6 +269,27 @@ function renderCompletedFromProgress() {
   }
 }
 
+function hasSavedProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    return data && Number.isInteger(data.currentIndex) && data.currentIndex > 0;
+  } catch {
+    return false;
+  }
+}
+
+function updateStartScreenByProgress() {
+  if (hasSavedProgress()) {
+    startBtn.textContent = 'Fortsätt';
+    if (typeof resetBtn !== 'undefined' && resetBtn) resetBtn.style.display = 'block';
+  } else {
+    startBtn.textContent = 'Börja';
+    if (typeof resetBtn !== 'undefined' && resetBtn) resetBtn.style.display = 'none';
+  }
+}
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const startScreen = document.getElementById('start-screen');
@@ -317,6 +338,9 @@ const jumpscareImage = document.getElementById('jumpscare-image');
 const treasureModal = document.getElementById('treasure-modal');
 const treasureModalBtn = document.getElementById('treasure-modal-btn');
 const choicesPrompt = document.getElementById('choices-prompt');
+const resetBtn = document.getElementById('reset-btn');
+
+updateStartScreenByProgress();
 
 const sounds = {
     correct: new Audio('audio/correct_answer.mp3'),
@@ -378,12 +402,40 @@ function startGame() {
 
 function setupEventListeners() {
     startBtn.addEventListener('click', () => {
-        startScreen.classList.remove('active');
-        introText.textContent = storyStartText;
-        playDialogueAudio(storyStartAudio);
-        introScreen.classList.add('active');
-        setTimeout(startGame, 23000);
-    });
+  // Om progress finns: hoppa över intro direkt
+  if (hasSavedProgress()) {
+    startScreen.classList.remove('active');
+    introScreen.classList.remove('active');
+    mapScreen.classList.add('active');
+    stopCurrentAudio();
+    startGame(); // startar spelet direkt (laddar + ritar progress)
+    return;
+  }
+
+  // Annars: kör befintligt introflöde
+  startScreen.classList.remove('active');
+  introText.textContent = storyStartText;
+  playDialogueAudio(storyStartAudio);
+  introScreen.classList.add('active');
+  setTimeout(startGame, 23000);
+});
+
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    currentIndex = 0;
+
+    // Återställ skärmarna till startläge
+    stopCurrentAudio();
+    introScreen.classList.remove('active');
+    mapScreen.classList.remove('active');
+    startScreen.classList.add('active');
+
+    // Uppdatera knappar/texter tillbaka till “Börja”
+    updateStartScreenByProgress();
+  });
+}
+
     submitAnswerBtn.addEventListener('click', () => {
         stopCurrentAudio();
         if (submitAnswerBtn.textContent === "Fortsätt...") {
