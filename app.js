@@ -195,17 +195,20 @@ const monsterTypes = [
 ];
 
 const monsters = [
-    { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283081, lng: 17.785847 }, { lat: 59.283497, lng: 17.78669 }] },
-    { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283234, lng: 17.787072 }, { lat: 59.283234, lng: 17.787072 }, { lat: 59.28299, lng: 17.785545 }, { lat: 59.282583, lng: 17.786196 }] },
-    { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.282347, lng: 17.787538 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }] },
-    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284661, lng: 17.789192 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }], speed: 1.5 },
-    { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286589, lng: 17.782764 }, { lat: 59.286545, lng: 17.783724 }, { lat: 59.285611, lng: 17.784158 }, { lat: 59.286542, lng: 17.783694 }] },
-    { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.285126, lng: 17.783892 }, { lat: 59.28456, lng: 17.784091 }, { lat: 59.284034, lng: 17.783404 }] },
-    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283887, lng: 17.786043 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
-    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.286177, lng: 17.783747 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }], speed: 1.0 },
-    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 1, waypoints: [{ lat: 59.283168, lng: 17.788025 }, { lat: 59.282445, lng: 17.786460 }, { lat: 59.283006, lng: 17.785513 }, { lat: 59.284572, lng: 17.784544 }] },
-    { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.281735, lng: 17.785316 }] },
-    { typeId: 7, spawnOnClue: 6, deSpawnOnClue: 9, waypoints: [{ lat: 59.2833, lng: 17.784059 }, { lat: 59.283277, lng: 17.784526 }, { lat: 59.284047, lng: 17.786477 }] }
+    { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283578, lng: 17.785616 }, { lat: 59.283399, lng: 17.785951 }, { lat: 59.283517, lng: 17.786756 }] },
+    { typeId: 0, spawnOnClue: 4, deSpawnOnClue: 5, waypoints: [{ lat: 59.283734, lng: 17.786766 }, { lat: 59.283230228383395, lng: 17.786523540384838 }, { lat: 59.28315934009364, lng: 17.785967878747368 }, { lat: 59.28299264623175, lng: 17.78551098814919 }, { lat: 59.28315934009364, lng: 17.785967878747368 }] },
+    { typeId: 5, spawnOnClue: 7, deSpawnOnClue: 8, waypoints: [{ lat: 59.28544815735607, lng: 17.785324313627267 }, { lat: 59.286317316122144, lng: 17.784942130505797 }] },
+    { typeId: 1, spawnOnClue: 5, waypoints: [{ lat: 59.2829188731391, lng: 17.789262017542324 }, { lat: 59.282175, lng: 17.787238 }, { lat: 59.282901, lng: 17.785694 }, { lat: 59.283421, lng: 17.785122 }, { lat: 59.282175, lng: 17.787238 }], speed: 3.0 },
+    { typeId: 2, spawnOnClue: 2, waypoints: [{ lat: 59.284801, lng: 17.789124 }, { lat: 59.28383, lng: 17.789582 }, { lat: 59.283194, lng: 17.788026 }, { lat: 59.284411, lng: 17.786624 }, { lat: 59.284721, lng: 17.788799 }] },
+    { typeId: 3, spawnOnClue: 8, waypoints: [{ lat: 59.286019238378465, lng: 17.783330253837256 }, { lat: 59.28609156447035, lng: 17.784097286616216 }, { lat: 59.28562748082581, lng: 17.78359974772486 }] },
+    { typeId: 4, spawnOnClue: 9, waypoints: [{ lat: 59.284770694569666, lng: 17.78383164781453 }, { lat: 59.284496019064825, lng: 17.784036582339358 }], speed: 2.0 },
+    { typeId: 4, spawnOnClue: 9, deSpawnOnClue: 10, waypoints: [{ lat: 59.28347938159038, lng: 17.784092408646956 }, { lat: 59.28435028891296, lng: 17.783748539856383 }], speed: 2.0 },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 2, waypoints: [{ lat: 59.283887, lng: 17.786043 }, { lat: 59.284185, lng: 17.786832 }, { lat: 59.28321, lng: 17.788021 }] },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 2, waypoints: [{ lat: 59.286177, lng: 17.783747 }, { lat: 59.283525, lng: 17.785139 }, { lat: 59.282476, lng: 17.786449 }, { lat: 59.282957, lng: 17.787568 }], speed: 1.0 },
+    { typeId: 5, spawnOnClue: 0, deSpawnOnClue: 2, waypoints: [{ lat: 59.283168, lng: 17.788025 }, { lat: 59.282445, lng: 17.786460 }, { lat: 59.283006, lng: 17.785513 }, { lat: 59.284572, lng: 17.784544 }] },
+    { typeId: 6, spawnOnClue: 3, waypoints: [{ lat: 59.282620, lng: 17.783469 }, { lat: 59.28239, lng: 17.783594 }, { lat: 59.282551, lng: 17.785003 }, { lat: 59.282032, lng: 17.786107 }] },
+    { typeId: 6, spawnOnClue: 2, deSpawnOnClue: 3, waypoints: [{ lat: 59.28165810355099, lng: 17.784918929525087 }, { lat: 59.28170014630056, lng: 17.785247558118066 }], speed: 0.5 },
+    { typeId: 7, spawnOnClue: 6, deSpawnOnClue: 9, waypoints: [{ lat: 59.284499494481516, lng: 17.78389416317616 }, { lat: 59.284637170670415, lng: 17.784398767145206 }, { lat: 59.28466466414918, lng: 17.784703013669997 }, { lat: 59.28461230610286, lng: 17.784950198000846 }, { lat: 59.28474591690411, lng: 17.785899199567446 }], speed: 3.0 }
     
 ];
 
@@ -373,6 +376,11 @@ function setupEventListeners() {
 }
 
 function startLocationWatcher() {
+
+     if (DEVELOPER_MODE) {
+        distanceInfo.textContent = "DEV-läge: position sätts vid spökklick.";
+        return;
+    }
     if (!navigator.geolocation) {
         distanceInfo.textContent = "Geopositionering stöds inte.";
         return;
@@ -408,7 +416,7 @@ function showTreasureConfirmation() {
     showSilasModal(
         location.story,
         "Ja, vi har hittat skatten",
-        () => { showFinalFarewell(); },
+        () => { deSpawnOnClue(currentIndex + 1); showFinalFarewell(); },
         location.storyAudio,
         location.taskImage, /* imageSrc */
         true /* fullBleed */,
@@ -453,12 +461,12 @@ async function panToNextLocation() {
     const nextLocation = locations[currentIndex];
     isFollowingUser = false;
     map.panTo(nextLocation.position);
-    await sleep(2500);
-    showNextLocation();
     await sleep(2000);
-    if (userPosition) {
+    showNextLocation();
+    await sleep(1500);
+    if (userPosition && !DEVELOPER_MODE) {
         map.panTo(userPosition);
-        await sleep(2500);
+        await sleep(2000);
     }
     isFollowingUser = true;
 }
@@ -485,6 +493,26 @@ function openTaskModal() {
     submitAnswerBtn.style.display = "";
 }
 
+function setUserPositionToCurrentClue() {
+  userPosition = { ...locations[currentIndex].position };
+  if (!userMarker) {
+    const userMarkerElement = document.createElement('div');
+    userMarkerElement.className = 'user-marker-icon';
+    userMarkerElement.innerHTML = ICONS[ICON_STYLE].player;
+    userMarker = new AdvancedMarkerElement({
+      position: userPosition,
+      map: map,
+      content: userMarkerElement,
+      title: 'Din position (DEV)'
+    });
+  } else {
+    userMarker.position = userPosition;
+  }
+
+  if (isFollowingUser) map.panTo(userPosition);
+  updateDistance();
+}
+
 function showNextLocation() {
     if (currentIndex >= locations.length) return;
     const location = locations[currentIndex];
@@ -492,6 +520,10 @@ function showNextLocation() {
     let markerContent = createMarkerIcon(isTreasure ? 'treasure' : 'active');
     currentMarker = new AdvancedMarkerElement({ position: location.position, map: map, title: location.title, content: markerContent });
     currentMarker.addListener('click', () => {
+        if (DEVELOPER_MODE) {
+             setUserPositionToCurrentClue();
+       	     console.log('DEV: position satt till nuvarande ledtråd');
+    	}
         if (!userPosition && !DEVELOPER_MODE) {
             showInfoModal("Positionering", "Väntar på att hitta din position...");
             return;
@@ -575,7 +607,7 @@ function checkAnswer() {
     	submitAnswerBtn.style.display = '';
     	submitAnswerBtn.disabled = false;
     	submitAnswerBtn.textContent = 'Skicka svar';
-	}, 1500);
+	}, 1000);
         
         if (currentMarker) {
             currentMarker.content = createMarkerIcon('completed');
@@ -672,7 +704,20 @@ function checkAndSpawnMonsters(clueIndex) {
         const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: DEVELOPER_MODE ? map : null, content: monsterIcon, title: `Monster` });
         monsterData.hasPlayedCloseSound = false;
 	monsterData.closeSoundAt = 0;
-	activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false, despawnAt: (typeof monsterData.deSpawnOnClue === 'number' ? monsterData.deSpawnOnClue : null) });
+	activeMonsterInstances.push({
+  		marker: marker,
+  		typeInfo: typeInfo,
+  		waypoints: monsterData.waypoints,
+  		speed: (typeof monsterData.speed === 'number' ? monsterData.speed : undefined),
+  		isHit: false,
+  		currentWaypoint: 0,
+  		isVisible: DEVELOPER_MODE,
+  		isChasing: false,
+  		proximityState: 'idle',
+  		lastNearSoundTime: 0,
+  		hasPlayedCloseSound: false,
+  		despawnAt: (typeof monsterData.deSpawnOnClue === 'number' ? monsterData.deSpawnOnClue : null)
+	});
     });
 }
 
@@ -771,7 +816,7 @@ function checkMonsterProximity() {
         }
 
         // Chasing-logik
-        monster.isChasing = (newState === 'near' || newState === 'close');
+        monster.isChasing = (newState === 'close');
         if (distance > MONSTER_PROXIMITY_NEAR + MONSTER_CHASE_BREAK_DISTANCE) {
             monster.isChasing = false;
         }
