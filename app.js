@@ -16,6 +16,7 @@ const MONSTER_PROXIMITY_NEAR = 59;
 const MONSTER_PROXIMITY_CLOSE = 20;
 const MONSTER_HIT_DISTANCE = 1.5;
 const MONSTER_CHASE_BREAK_DISTANCE = 20;
+const CLOSE_TO_HIT_MIN_DELAY_MS = 5000;
 
 // Monster speed (m/s)
 const MONSTER_SPEED_NORMAL = 1.5;
@@ -669,7 +670,9 @@ function checkAndSpawnMonsters(clueIndex) {
         monsterIcon.className = 'monster-icon monster-idle';
         monsterIcon.innerHTML = typeInfo.icon;
         const marker = new AdvancedMarkerElement({ position: monsterData.waypoints[0], map: DEVELOPER_MODE ? map : null, content: monsterIcon, title: `Monster` });
-        activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false, despawnAt: (typeof monsterData.deSpawnOnClue === 'number' ? monsterData.deSpawnOnClue : null) });
+        monsterData.hasPlayedCloseSound = false;
+	monsterData.closeSoundAt = 0;
+	activeMonsterInstances.push({ marker: marker, typeInfo: typeInfo, waypoints: monsterData.waypoints, isHit: false, currentWaypoint: 0, isVisible: DEVELOPER_MODE, isChasing: false, proximityState: 'idle', lastNearSoundTime: 0, hasPlayedCloseSound: false, despawnAt: (typeof monsterData.deSpawnOnClue === 'number' ? monsterData.deSpawnOnClue : null) });
     });
 }
 
@@ -683,15 +686,6 @@ function deSpawnOnClue(clueIndex) {
             activeMonsterInstances.splice(i, 1);
         }
     }
-}
-
-
-
-function startGameLoop() {
-    setInterval(() => {
-        updateMonsterPositions();
-        checkMonsterProximity();
-    }, 1000);
 }
 
 function startGameLoop() {
@@ -749,13 +743,25 @@ function updateMonsterPositions(dt) {
 
 function checkMonsterProximity() {
     if (!userPosition) return;
+
     activeMonsterInstances.forEach(monster => {
         if (monster.isHit || !monster.marker) return;
+
         const distance = getDistance(userPosition, monster.marker.position);
+
+        // Bestäm nytt närhetsläge
         let newState = 'idle';
-        if (distance < MONSTER_HIT_DISTANCE) newState = 'hit';
-        else if (distance < MONSTER_PROXIMITY_CLOSE) newState = 'close';
-        else if (distance < MONSTER_PROXIMITY_NEAR) newState = 'near';
+        if (distance < MONSTER_HIT_DISTANCE)          newState = 'hit';
+        else if (distance < MONSTER_PROXIMITY_CLOSE)  newState = 'close';
+        else if (distance < MONSTER_PROXIMITY_NEAR)   newState = 'near';
+
+        // Förhindra "hit" direkt efter "close" (cooldown)
+        const now = Date.now();
+        if (newState === 'hit' && monster.closeSoundAt && (now - monster.closeSoundAt) < CLOSE_TO_HIT_MIN_DELAY_MS) {
+            newState = 'close';
+        }
+
+        // Visa/dölj marker (om inte dev)
         if (!DEVELOPER_MODE) {
             if (distance <= MONSTER_VISIBILITY_DISTANCE) {
                 if (!monster.isVisible) { monster.marker.map = map; monster.isVisible = true; }
@@ -763,13 +769,19 @@ function checkMonsterProximity() {
                 if (monster.isVisible) { monster.marker.map = null; monster.isVisible = false; }
             }
         }
+
+        // Chasing-logik
         monster.isChasing = (newState === 'near' || newState === 'close');
         if (distance > MONSTER_PROXIMITY_NEAR + MONSTER_CHASE_BREAK_DISTANCE) {
             monster.isChasing = false;
         }
+
+        // Nollställ close-flaggor om vi inte är close/hit
         if (newState !== 'close' && newState !== 'hit') {
             monster.hasPlayedCloseSound = false;
         }
+
+        // Ljud & träff
         if (monster.isVisible) {
             if (newState === 'hit') {
                 handleMonsterHit(monster);
@@ -777,10 +789,10 @@ function checkMonsterProximity() {
                 if (!monster.hasPlayedCloseSound) {
                     sounds[monster.typeInfo.sounds.close].play();
                     monster.hasPlayedCloseSound = true;
+                    monster.closeSoundAt = now;       // ← viktigt för cooldown
                 }
             } else if (newState === 'near') {
-                const now = Date.now();
-                if (now - monster.lastNearSoundTime > 60000) {
+                if (now - (monster.lastNearSoundTime || 0) > 60000) {
                     sounds[monster.typeInfo.sounds.near].play();
                     monster.lastNearSoundTime = now;
                 }
@@ -788,19 +800,15 @@ function checkMonsterProximity() {
         } else {
             monster.isChasing = false;
         }
+
+        // Dev-visualisering (klass på ikon)
         if (DEVELOPER_MODE && monster.marker && newState !== monster.proximityState) {
             const iconElement = monster.marker.content;
             iconElement.className = 'monster-icon';
-            switch(newState) {
-                case 'near':
-                    iconElement.classList.add('monster-chasing-near');
-                    break;
-                case 'close':
-                    iconElement.classList.add('monster-chasing-close');
-                    break;
-                default:
-                    iconElement.classList.add('monster-idle');
-                    break;
+            switch (newState) {
+                case 'near':  iconElement.classList.add('monster-chasing-near');  break;
+                case 'close': iconElement.classList.add('monster-chasing-close'); break;
+                default:      iconElement.classList.add('monster-idle');          break;
             }
             monster.proximityState = newState;
         }
