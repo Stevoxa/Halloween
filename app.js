@@ -4,7 +4,7 @@
 //
 // ======================================================
 
-const DEVELOPER_MODE = true;
+const DEVELOPER_MODE = false;
 
 const mapStartCenter = { lat: 59.284, lng: 17.785 };
 const UNLOCK_DISTANCE = 5;
@@ -98,7 +98,7 @@ const locations = [
         taskAudio: "audio/task_4.mp3",
         taskImage: "images/task_galgbacken.png",
         answer: "Galgbacke", 
-        choices: ["Avrättningsplats", "Galgbacke", "Lekplats"], 
+        choices: ["Slaktplats", "Galgbacke", "Lekplats"], 
         nextClue: "Ni känner sorgen ni med... Men det fanns ett hus som såg allt. Ett kråkslott på höjden, som en tyst väktare.",
         nextClueAudio: "audio/dialogue_4_next.mp3",
         nextClueImage: "images/task_krakslottet.png"
