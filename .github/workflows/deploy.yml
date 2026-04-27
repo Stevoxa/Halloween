@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject Google Maps API key
+        env:
+          GMAPS_KEY: ${{ secrets.GMAPS_KEY }}
+        run: |
+          if [ -z "$GMAPS_KEY" ]; then
+            echo "ERROR: GMAPS_KEY secret is not set in repo settings."
+            exit 1
+          fi
+          # Use a delimiter unlikely to appear in the key, and avoid logging it.
+          python3 -c "import os,sys; p='index.html'; s=open(p,encoding='utf-8').read(); open(p,'w',encoding='utf-8').write(s.replace('__GMAPS_KEY__', os.environ['GMAPS_KEY']))"
+          if grep -q "__GMAPS_KEY__" index.html; then
+            echo "ERROR: placeholder __GMAPS_KEY__ still present after substitution."
+            exit 1
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
