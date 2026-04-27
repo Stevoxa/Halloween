@@ -612,7 +612,7 @@ function showNextLocation() {
     const isTreasure = currentIndex === locations.length - 1;
     let markerContent = createMarkerIcon(isTreasure ? 'treasure' : 'active');
     currentMarker = new AdvancedMarkerElement({ position: location.position, map: map, title: location.title, content: markerContent });
-    currentMarker.addListener('click', () => {
+    currentMarker.addListener('gmp-click', () => {
         if (DEVELOPER_MODE) {
              setUserPositionToCurrentClue();
        	     console.log('DEV: position satt till nuvarande ledtråd');
